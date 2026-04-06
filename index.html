@@ -2,1545 +2,825 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trader X Crypto | Berita Kripto Premium Indonesia</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="theme-color" content="#0A0F1F">
+    <title>Trader X Academy | Edukasi Premium + Kalkulator</title>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
-        :root {
-            --primary: #7C3AED;
-            --primary-dark: #6D28D9;
-            --primary-light: #8B5CF6;
-            --secondary: #0F0F23;
-            --secondary-light: #1A1A2E;
-            --accent: #00F5D4;
-            --accent-secondary: #FF6B9D;
-            --text: #F5F5F7;
-            --text-secondary: #A0A0B0;
-            --success: #00D896;
-            --warning: #FFB74D;
-            --danger: #FF6B6B;
-            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            --gradient-dark: linear-gradient(135deg, #0F0F23 0%, #1A1A2E 100%);
-            --gradient-accent: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
-            --shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            --shadow-light: 0 10px 30px rgba(124, 58, 237, 0.2);
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-            --glass: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
-
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 80px;
-        }
-
         body {
-            font-family: 'Manrope', sans-serif;
-            line-height: 1.6;
-            color: var(--text);
-            background: var(--secondary);
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            background: #0A0F1F;
+            color: #E2E8F0;
             overflow-x: hidden;
-            position: relative;
+            padding-bottom: 80px;
         }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #1E293B; }
+        ::-webkit-scrollbar-thumb { background: #00FFAA; border-radius: 10px; }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(124, 58, 237, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(0, 245, 212, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(255, 107, 157, 0.03) 0%, transparent 50%);
-            z-index: -1;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            line-height: 1.1;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1400px;
+        .app {
+            max-width: 500px;
             margin: 0 auto;
-            padding: 0 40px;
+            position: relative;
+            min-height: 100vh;
+            background: radial-gradient(circle at 20% 30%, #0F172A, #0A0F1F);
         }
-
-        .glass {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
+        .page {
+            animation: fadeIn 0.25s ease;
         }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .container { padding: 20px 18px 30px; }
 
+        /* Card glassmorphism */
+        .card {
+            background: rgba(18, 25, 45, 0.65);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            border: 1px solid rgba(0, 255, 170, 0.25);
+            padding: 18px 20px;
+            margin-bottom: 18px;
+            transition: all 0.2s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        .card:hover {
+            border-color: #00FFAA;
+            transform: translateY(-2px);
+        }
         .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 16px 32px;
-            background: var(--gradient-primary);
-            color: white;
             border: none;
-            border-radius: 12px;
+            border-radius: 44px;
+            padding: 12px 20px;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            font-size: 16px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--shadow-light);
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
+            transition: 0.15s;
         }
-
-        .btn:hover::before {
-            left: 100%;
+        .btn-primary {
+            background: linear-gradient(95deg, #00FFAA, #00D4FF);
+            color: #0A0F1F;
         }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(124, 58, 237, 0.3);
-        }
-
         .btn-outline {
             background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            box-shadow: none;
+            border: 1px solid #00FFAA;
+            color: #00FFAA;
         }
-
-        .btn-outline:hover {
-            background: var(--primary);
+        input, select {
+            width: 100%;
+            padding: 14px 16px;
+            background: #0F1422;
+            border: 1px solid #2D3A5E;
+            border-radius: 28px;
             color: white;
-        }
-
-        .btn-accent {
-            background: var(--gradient-accent);
-        }
-
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 20px 0;
-            transition: var(--transition);
-            background: rgba(15, 15, 35, 0.9);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        header.scrolled {
-            padding: 15px 0;
-            box-shadow: var(--shadow);
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: 800;
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo-gradient {
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: var(--gradient-primary);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 40px;
-        }
-
-        .nav-links a {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 16px;
-            transition: var(--transition);
-            position: relative;
-            padding: 8px 0;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gradient-primary);
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-light);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .mobile-menu {
-            display: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--primary);
-            background: rgba(124, 58, 237, 0.1);
-            padding: 10px;
-            border-radius: 8px;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 120px 0 80px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-title {
-            font-size: 64px;
-            margin-bottom: 24px;
-            line-height: 1.1;
-        }
-
-        .hero-title-gradient {
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-subtitle {
-            font-size: 20px;
-            color: var(--text-secondary);
-            margin-bottom: 40px;
-            max-width: 600px;
-            font-weight: 400;
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 40px;
-            margin-top: 60px;
-            flex-wrap: wrap;
-        }
-
-        .stat-card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 24px;
-            min-width: 180px;
-            transition: var(--transition);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: var(--shadow-light);
-        }
-
-        .stat-value {
-            font-size: 40px;
-            font-weight: 800;
-            color: var(--accent);
-            margin-bottom: 8px;
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
-        .stat-label {
             font-size: 14px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-bottom: 14px;
+            outline: none;
         }
+        input:focus { border-color: #00FFAA; }
 
-        .hero-illustration {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 40%;
-            height: 70%;
-            opacity: 0.8;
-            z-index: 1;
-        }
+        .flex-between { display: flex; justify-content: space-between; align-items: center; }
+        .mt-2 { margin-top: 12px; }
+        .mb-2 { margin-bottom: 12px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
 
-        .hero-illustration::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at center, var(--primary) 0%, transparent 70%),
-                radial-gradient(circle at 30% 70%, var(--accent) 0%, transparent 50%),
-                radial-gradient(circle at 70% 30%, var(--accent-secondary) 0%, transparent 50%);
-            filter: blur(40px);
-            opacity: 0.3;
-        }
-
-        /* Featured News */
-        .featured {
-            padding: 100px 0;
-            position: relative;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 60px;
-        }
-
-        .section-title {
-            font-size: 48px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background: var(--gradient-primary);
-            border-radius: 2px;
-        }
-
-        .section-subtitle {
-            color: var(--text-secondary);
-            font-size: 18px;
-            max-width: 500px;
-        }
-
-        .featured-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .main-featured {
-            grid-column: 1 / -1;
-            height: 400px;
-            position: relative;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-
-        .main-featured::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(0deg, rgba(15, 15, 35, 0.9) 0%, transparent 50%);
-            z-index: 1;
-        }
-
-        .featured-content {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 40px;
-            z-index: 2;
-        }
-
-        .featured-tag {
-            display: inline-block;
-            background: var(--gradient-accent);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
-        }
-
-        .featured-title {
-            font-size: 36px;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .featured-meta {
-            display: flex;
-            gap: 20px;
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
-        .featured-meta i {
-            margin-right: 8px;
-        }
-
-        .secondary-featured {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 30px;
-            transition: var(--transition);
-        }
-
-        .secondary-featured:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: var(--shadow-light);
-        }
-
-        .secondary-tag {
-            display: inline-block;
-            background: rgba(124, 58, 237, 0.2);
-            color: var(--primary-light);
-            padding: 6px 16px;
-            border-radius: 16px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        .secondary-title {
-            font-size: 22px;
-            margin-bottom: 15px;
-            line-height: 1.3;
-        }
-
-        .secondary-meta {
-            display: flex;
-            justify-content: space-between;
-            color: var(--text-secondary);
-            font-size: 13px;
-            margin-top: 20px;
-        }
-
-        /* Market Ticker */
-        .market-ticker {
-            padding: 30px 0;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            margin-bottom: 60px;
-            overflow: hidden;
-        }
-
-        .ticker-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding: 0 30px;
-        }
-
-        .ticker-title {
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .ticker-container {
-            display: flex;
-            gap: 40px;
-            padding: 0 30px;
-            overflow-x: auto;
-            scrollbar-width: none;
-        }
-
-        .ticker-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        .ticker-item {
-            min-width: 180px;
-            padding: 20px;
-            background: rgba(15, 15, 35, 0.5);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: var(--transition);
-        }
-
-        .ticker-item:hover {
-            border-color: var(--primary);
-            transform: translateY(-3px);
-        }
-
-        .ticker-header-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-
-        .ticker-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--gradient-primary);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-        }
-
-        .ticker-name {
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .ticker-price {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
-        .ticker-change {
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .ticker-change.positive {
-            color: var(--success);
-        }
-
-        .ticker-change.negative {
-            color: var(--danger);
-        }
-
-        /* News Grid */
-        .news-grid-section {
-            padding: 80px 0;
-            background: var(--gradient-dark);
-            position: relative;
-        }
-
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .news-card {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: var(--transition);
-            height: 100%;
-        }
-
-        .news-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: var(--shadow);
-        }
-
-        .news-image {
-            height: 200px;
-            background: var(--gradient-primary);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .news-category {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(15, 15, 35, 0.9);
-            color: var(--accent);
-            padding: 8px 16px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            backdrop-filter: blur(10px);
-        }
-
-        .news-content {
-            padding: 30px;
-        }
-
-        .news-title {
-            font-size: 20px;
-            margin-bottom: 15px;
-            line-height: 1.4;
-        }
-
-        .news-excerpt {
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            font-size: 15px;
-            line-height: 1.6;
-        }
-
-        .news-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .news-author {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .author-avatar {
-            width: 32px;
-            height: 32px;
-            background: var(--gradient-accent);
-            border-radius: 50%;
-        }
-
-        .author-name {
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .news-date {
-            color: var(--text-secondary);
-            font-size: 13px;
-        }
-
-        /* Newsletter */
-        .newsletter {
-            padding: 100px 0;
-            position: relative;
-        }
-
-        .newsletter-content {
-            background: var(--gradient-primary);
-            border-radius: 30px;
-            padding: 60px;
+        .quick-btn {
+            background: linear-gradient(95deg, #1E2A47, #0F172A);
+            border: 1px solid #00FFAA;
+            border-radius: 40px;
+            padding: 12px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--shadow);
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.15s;
         }
+        .quick-btn:active { transform: scale(0.97); }
+        .stat-value { font-size: 28px; font-weight: 800; color: #00FFAA; }
 
-        .newsletter-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="pattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23pattern)"/></svg>');
-            opacity: 0.1;
-        }
-
-        .newsletter-title {
-            font-size: 42px;
-            margin-bottom: 20px;
-            color: white;
-        }
-
-        .newsletter-subtitle {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 18px;
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .newsletter-form {
+        .market-item {
             display: flex;
-            gap: 15px;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #1E293B;
+        }
+        .up { color: #00FFAA; }
+        .down { color: #FF4466; }
+
+        /* Video Carousel */
+        .video-carousel {
+            display: flex;
+            overflow-x: auto;
+            gap: 16px;
+            scroll-snap-type: x mandatory;
+            padding-bottom: 8px;
+        }
+        .video-carousel::-webkit-scrollbar { height: 3px; }
+        .video-card {
+            flex: 0 0 280px;
+            scroll-snap-align: start;
+            background: #111827;
+            border-radius: 28px;
+            overflow: hidden;
+            border: 1px solid rgba(0,255,170,0.3);
+        }
+        .video-thumb iframe { width: 100%; height: 100%; border: none; }
+        .video-info { padding: 12px; }
+        .video-title { font-weight: 600; font-size: 14px; }
+
+        /* News */
+        .news-carousel {
+            display: flex;
+            overflow-x: auto;
+            gap: 14px;
+            padding-bottom: 8px;
+        }
+        .news-card {
+            flex: 0 0 220px;
+            background: #111827;
+            border-radius: 28px;
+            overflow: hidden;
+        }
+        .news-img { width: 100%; height: 120px; object-fit: cover; }
+        .news-title { padding: 12px; font-size: 13px; }
+
+        /* Activity */
+        .activity-item {
+            background: rgba(0,255,170,0.05);
+            border-radius: 24px;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-left: 3px solid #00FFAA;
+            font-size: 13px;
+        }
+
+        .edit-icon {
+            cursor: pointer;
+            background: #1E293B;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+        }
+        .badge-premium { background: #00FFAA; color: #0A0F1F; }
+        .badge { display: inline-flex; padding: 4px 12px; border-radius: 30px; font-size: 11px; font-weight: 600; }
+        .toast {
+            position: fixed;
+            bottom: 90px;
+            left: 20px;
+            right: 20px;
+            background: #1E293B;
+            border-left: 4px solid #00FFAA;
+            padding: 14px;
+            border-radius: 28px;
+            z-index: 1500;
+            animation: slideUp 0.3s;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .modal {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        .modal-content {
+            background: #111827;
+            border-radius: 36px;
+            max-width: 90%;
+            width: 380px;
+            padding: 24px;
+            border: 1px solid #00FFAA;
+        }
+        .profit-positive { color: #00FFAA; }
+        .profit-negative { color: #FF4466; }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
             max-width: 500px;
             margin: 0 auto;
+            background: rgba(10, 15, 31, 0.96);
+            backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 12px 22px;
+            border-top: 1px solid rgba(0,255,170,0.3);
+            z-index: 100;
         }
-
-        .newsletter-input {
-            flex: 1;
-            padding: 18px 24px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            color: white;
-            font-size: 16px;
-            backdrop-filter: blur(10px);
-            transition: var(--transition);
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: none;
+            border: none;
+            color: #7E8AA8;
+            font-size: 11px;
+            gap: 4px;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 30px;
         }
+        .nav-item.active { color: #00FFAA; background: rgba(0,255,170,0.12); }
+        .nav-item span:first-child { font-size: 22px; }
 
-        .newsletter-input:focus {
-            outline: none;
-            border-color: white;
-            background: rgba(255, 255, 255, 0.15);
+        /* ========== EDUKASI STYLE BARU (seperti gambar) ========== */
+        .edu-card {
+            background: rgba(18, 25, 45, 0.7);
+            border-radius: 28px;
+            padding: 18px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(0,255,170,0.2);
+            transition: 0.2s;
+            cursor: pointer;
         }
-
-        .newsletter-input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
+        .edu-card:hover {
+            border-color: #00FFAA;
+            transform: translateX(4px);
         }
-
-        /* Footer */
-        footer {
-            background: #0A0A1A;
-            padding: 80px 0 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 60px;
-        }
-
-        .footer-column h3 {
+        .edu-title {
             font-size: 18px;
-            margin-bottom: 25px;
-            color: white;
-            position: relative;
-            padding-bottom: 10px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #00FFAA;
         }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 30px;
-            height: 3px;
-            background: var(--gradient-primary);
-            border-radius: 2px;
+        .edu-desc {
+            font-size: 13px;
+            color: #CBD5E1;
+            line-height: 1.4;
+            margin-bottom: 12px;
         }
-
-        .footer-description {
-            color: var(--text-secondary);
-            margin: 20px 0;
-            line-height: 1.7;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 15px;
-        }
-
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: var(--transition);
+        .edu-footer {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            margin-top: 8px;
         }
-
-        .footer-links a:hover {
-            color: var(--accent);
-            transform: translateX(5px);
-        }
-
-        .footer-links i {
+        .edu-badge {
+            background: #1E293B;
+            padding: 4px 12px;
+            border-radius: 30px;
             font-size: 12px;
-            opacity: 0.5;
+            font-weight: 600;
         }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .social-links a {
-            width: 44px;
-            height: 44px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text);
-            transition: var(--transition);
-        }
-
-        .social-links a:hover {
-            background: var(--gradient-primary);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-light);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--text-secondary);
+        .edu-number {
             font-size: 14px;
+            font-weight: 800;
+            color: #00FFAA;
         }
-
-        .copyright-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
+        .premium-lock {
+            filter: blur(3px);
+            pointer-events: none;
+            opacity: 0.6;
         }
-
-        .copyright-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: var(--transition);
+        /* kalkulator result */
+        .result-box {
+            background: rgba(0,255,170,0.08);
+            border-radius: 24px;
+            padding: 14px;
+            margin-top: 16px;
         }
-
-        .copyright-links a:hover {
-            color: var(--accent);
+        .profit-step {
+            background: #111827;
+            border-radius: 20px;
+            padding: 10px;
+            margin-bottom: 8px;
         }
-
-        /* Responsive Design */
-        @media (max-width: 1200px) {
-            .hero-title {
-                font-size: 54px;
-            }
-            
-            .hero-illustration {
-                opacity: 0.4;
-            }
-        }
-
-        @media (max-width: 992px) {
-            .container {
-                padding: 0 30px;
-            }
-            
-            .hero-title {
-                font-size: 48px;
-            }
-            
-            .featured-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-                gap: 40px;
-            }
-            
-            .hero-illustration {
-                display: none;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links, .nav-actions {
-                display: none;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .hero {
-                padding: 100px 0 60px;
-            }
-            
-            .hero-title {
-                font-size: 40px;
-            }
-            
-            .hero-subtitle {
-                font-size: 18px;
-            }
-            
-            .section-title {
-                font-size: 36px;
-            }
-            
-            .news-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .newsletter-form {
-                flex-direction: column;
-            }
-            
-            .newsletter-content {
-                padding: 40px 30px;
-            }
-            
-            .newsletter-title {
-                font-size: 32px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .container {
-                padding: 0 20px;
-            }
-            
-            .hero-title {
-                font-size: 36px;
-            }
-            
-            .hero-stats {
-                gap: 20px;
-            }
-            
-            .stat-card {
-                min-width: calc(50% - 10px);
-            }
-            
-            .featured-title {
-                font-size: 28px;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
+        .calc-label {
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: block;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header id="header">
-        <div class="container">
-            <nav class="navbar">
-                <a href="#" class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <span class="logo-gradient">Trader X Crypto</span>
-                </a>
-                
-                <ul class="nav-links">
-                    <li><a href="#home">Beranda</a></li>
-                    <li><a href="#news">Berita</a></li>
-                    <li><a href="#market">Market</a></li>
-                    <li><a href="#analysis">Analisis</a></li>
-                    <li><a href="#guides">Panduan</a></li>
-                </ul>
-                
-                <div class="nav-actions">
-                    <a href="#" class="btn-outline">Masuk</a>
-                    <a href="#" class="btn">Daftar Gratis</a>
-                </div>
-                
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-            </nav>
-        </div>
-    </header>
+<div class="app" id="appRoot"></div>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    <span class="hero-title-gradient">Berita Kripto</span><br>
-                    Terdepan di Indonesia
-                </h1>
-                <p class="hero-subtitle">
-                    Platform berita kripto premium dengan analisis mendalam, update real-time, dan insights eksklusif dari pakar industri. 
-                    Selalu terdepan dalam informasi blockchain dan teknologi Web3.
-                </p>
-                <div class="hero-btns">
-                    <a href="#news" class="btn">Mulai Jelajahi <i class="fas fa-arrow-right"></i></a>
-                    <a href="#" class="btn-outline">Tonton Demo <i class="fas fa-play"></i></a>
-                </div>
-                
-                <div class="hero-stats">
-                    <div class="stat-card glass">
-                        <div class="stat-value">10K+</div>
-                        <div class="stat-label">Artikel Premium</div>
-                    </div>
-                    <div class="stat-card glass">
-                        <div class="stat-value">24/7</div>
-                        <div class="stat-label">Update Real-time</div>
-                    </div>
-                    <div class="stat-card glass">
-                        <div class="stat-value">50+</div>
-                        <div class="stat-label">Analis Ahli</div>
-                    </div>
-                    <div class="stat-card glass">
-                        <div class="stat-value">1M+</div>
-                        <div class="stat-label">Pembaca Bulanan</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="hero-illustration"></div>
-    </section>
+<script>
+    // ======================== STORAGE ========================
+    const STORAGE = {
+        USERS: "traderX_users",
+        CURRENT: "traderX_current",
+        SIGNALS: "traderX_signals",
+        JOURNALS: "traderX_journals",
+        ACTIVITIES: "traderX_activities",
+        EDU_PROGRESS: "traderX_edu_progress"
+    };
 
-    <!-- Featured News -->
-    <section class="featured" id="news">
-        <div class="container">
-            <div class="section-header">
-                <div>
-                    <h2 class="section-title">Berita Utama</h2>
-                    <p class="section-subtitle">Update terkini dari dunia kripto dan blockchain</p>
-                </div>
-                <a href="#" class="btn-outline">Lihat Semua <i class="fas fa-arrow-right"></i></a>
-            </div>
-            
-            <div class="featured-grid">
-                <div class="main-featured" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                    <div class="featured-content">
-                        <span class="featured-tag">BREAKING NEWS</span>
-                        <h3 class="featured-title">Bitcoin Capai $100,000: Sejarah Baru Ditorehkan</h3>
-                        <div class="featured-meta">
-                            <span><i class="far fa-calendar"></i> 22 Januari 2026</span>
-                            <span><i class="far fa-clock"></i> 6 min read</span>
-                            <span><i class="far fa-eye"></i> 25.4K views</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="secondary-featured glass">
-                    <span class="secondary-tag">TECHNOLOGY</span>
-                    <h4 class="secondary-title">Ethereum 3.0: Revolusi Smart Contract dengan Zero-Knowledge Proof</h4>
-                    <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 15px;">
-                        Upgrade terbesar Ethereum meningkatkan skalabilitas dan privasi transaksi secara signifikan.
-                    </p>
-                    <div class="secondary-meta">
-                        <span>By: Crypto Expert</span>
-                        <span>2 jam lalu</span>
-                    </div>
-                </div>
-                
-                <div class="secondary-featured glass">
-                    <span class="secondary-tag">REGULATION</span>
-                    <h4 class="secondary-title">Indonesia Resmi Legalize Crypto sebagai Aset Investasi</h4>
-                    <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 15px;">
-                        OJK mengumumkan regulasi baru yang memberikan kepastian hukum bagi investor kripto.
-                    </p>
-                    <div class="secondary-meta">
-                        <span>By: Legal Team</span>
-                        <span>4 jam lalu</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    const defaultSignals = [
+        { id: "s1", pair: "BTC/USD", entry: "43200", tp: "45000", sl: "42500", status: "OPEN", premium: true, createdAt: Date.now() - 3600000 },
+        { id: "s2", pair: "XAUUSD", entry: "1985", tp: "2000", sl: "1970", status: "WIN", premium: false, createdAt: Date.now() - 86400000 },
+        { id: "s3", pair: "EUR/USD", entry: "1.0890", tp: "1.0950", sl: "1.0850", status: "LOSS", premium: false, createdAt: Date.now() - 172800000 }
+    ];
+    const defaultActivities = [
+        { id: "act1", text: "🔥 Kamu profit +$20 di EURUSD", timestamp: Date.now() - 7200000 },
+        { id: "act2", text: "📡 Signal BTC Aktif: Entry 43200", timestamp: Date.now() - 3600000 }
+    ];
 
-    <!-- Market Ticker -->
-    <section class="market-ticker" id="market">
-        <div class="container">
-            <div class="ticker-header">
-                <h3 class="ticker-title">
-                    <i class="fas fa-chart-line"></i>
-                    Live Market Data
-                </h3>
-                <span style="color: var(--text-secondary); font-size: 14px;">Update real-time</span>
-            </div>
-            
-            <div class="ticker-container">
-                <div class="ticker-item glass">
-                    <div class="ticker-header-row">
-                        <div class="ticker-icon">
-                            <i class="fab fa-bitcoin"></i>
-                        </div>
-                        <div>
-                            <div class="ticker-name">Bitcoin</div>
-                            <div class="ticker-symbol">BTC</div>
-                        </div>
-                    </div>
-                    <div class="ticker-price">$98,742.36</div>
-                    <div class="ticker-change positive">+5.42%</div>
-                </div>
-                
-                <div class="ticker-item glass">
-                    <div class="ticker-header-row">
-                        <div class="ticker-icon">
-                            <i class="fab fa-ethereum"></i>
-                        </div>
-                        <div>
-                            <div class="ticker-name">Ethereum</div>
-                            <div class="ticker-symbol">ETH</div>
-                        </div>
-                    </div>
-                    <div class="ticker-price">$6,842.19</div>
-                    <div class="ticker-change positive">+3.87%</div>
-                </div>
-                
-                <div class="ticker-item glass">
-                    <div class="ticker-header-row">
-                        <div class="ticker-icon">
-                            <i class="fas fa-coins"></i>
-                        </div>
-                        <div>
-                            <div class="ticker-name">Solana</div>
-                            <div class="ticker-symbol">SOL</div>
-                        </div>
-                    </div>
-                    <div class="ticker-price">$342.56</div>
-                    <div class="ticker-change positive">+8.21%</div>
-                </div>
-                
-                <div class="ticker-item glass">
-                    <div class="ticker-header-row">
-                        <div class="ticker-icon">
-                            <i class="fas fa-gem"></i>
-                        </div>
-                        <div>
-                            <div class="ticker-name">Cardano</div>
-                            <div class="ticker-symbol">ADA</div>
-                        </div>
-                    </div>
-                    <div class="ticker-price">$2.34</div>
-                    <div class="ticker-change negative">-1.23%</div>
-                </div>
-                
-                <div class="ticker-item glass">
-                    <div class="ticker-header-row">
-                        <div class="ticker-icon">
-                            <i class="fas fa-rocket"></i>
-                        </div>
-                        <div>
-                            <div class="ticker-name">Polkadot</div>
-                            <div class="ticker-symbol">DOT</div>
-                        </div>
-                    </div>
-                    <div class="ticker-price">$42.18</div>
-                    <div class="ticker-change positive">+2.67%</div>
-                </div>
-            </div>
-        </div>
-    </section>
+    // Data materi edukasi yang kaya (mirip contoh gambar)
+    const educationData = [
+        { id: "edu1", title: "Teknik Manajemen Risiko untuk Trader", desc: "Manajemen risiko adalah upaya menyeimbangkan peluang keuntungan dengan potensi kerugian dari pilihan investasi...", level: "Pemula", premium: false, readCount: 1, content: "Manajemen risiko mencakup pengaturan lot, stop loss, dan risk reward ratio. Jangan pernah risk lebih dari 2% per trade." },
+        { id: "edu2", title: "Apa Itu Candlestick? (Gimana Cara Kerjanya Dan Pola dasar)", desc: "Pelajari komponen utama candlestick: open, high, low, close. Pahami bagaimana candlestick menunjukkan cerita pe...", level: "Pemula", premium: false, readCount: 1, content: "Candlestick berasal dari Jepang. Setiap lilin memiliki tubuh (body) dan sumbu (wick/wick). Pola doji, hammer, engulfing dll." },
+        { id: "edu3", title: "Pengertian Liquidity", desc: "Liquidity (likuiditas) dalam Trading berarti seberapa cepat dan mudahnya sebuah pasangan mata uang bisa dibeli atau dijual...", level: "Menengah", premium: false, readCount: 0, content: "Likuiditas tinggi membuat slippage kecil. Forex adalah pasar paling likuid. Crypto memiliki likuiditas bervariasi." },
+        { id: "edu4", title: "MARKET STRUCTURE", desc: "Pengertian dari Struktur Market adalah gambaran atau struktur yang terbentuk dari pergerakan harga di market tert...", level: "Menengah", premium: false, readCount: 12, content: "Market structure: bullish, bearish, sideways. Break of structure (BOS) dan change of character (CHoCH)." },
+        { id: "edu5", title: "Pola Candle Pattrens (Bagaimana Pola Grafik Bekerja?)", desc: "Pola grafik trading adalah bentuk atau formasi spesifik yang terbentuk dalam grafik harga pasar yang sering kali ber...", level: "Lanjutan", premium: true, readCount: 1, content: "Pola candlestick lanjutan: morning star, evening star, three white soldiers. Premium content." },
+        { id: "edu6", title: "SUPPORT & RESISTANCE", desc: "Asas tentang konsep support dan resistance. Support dan resistance adalah kunci penting dalam analisis ...", level: "Pemula", premium: false, readCount: 1, content: "Support adalah level harga bawah yang cenderung ditahan, resistance adalah level atas yang menghalangi kenaikan." },
+        { id: "edu7", title: "Smart Money Concept (SMC) Advanced", desc: "Pelajari Order Block, Fair Value Gap, Liquidity Grab. Strategi institutional trading.", level: "Expert", premium: true, readCount: 8, content: "SMC mengikuti aliran bank sentral. Order block adalah area akumulasi institusi. Premium hanya untuk member premium." }
+    ];
 
-    <!-- News Grid -->
-    <section class="news-grid-section">
-        <div class="container">
-            <div class="section-header">
-                <div>
-                    <h2 class="section-title">Berita Terbaru</h2>
-                    <p class="section-subtitle">Kumpulan artikel terkini dari berbagai kategori kripto</p>
-                </div>
-                <a href="#" class="btn">Lihat Semua <i class="fas fa-arrow-right"></i></a>
-            </div>
-            
-            <div class="news-grid">
-                <div class="news-card glass">
-                    <div class="news-image">
-                        <span class="news-category">DEFI</span>
-                    </div>
-                    <div class="news-content">
-                        <h3 class="news-title">Total Value Locked DeFi Tembus $300 Miliar</h3>
-                        <p class="news-excerpt">
-                            Ekosistem DeFi mencatat pertumbuhan luar biasa dengan TVL mencapai rekor baru $300 miliar, 
-                            didorong oleh protokol lending dan yield farming terbaru.
-                        </p>
-                        <div class="news-footer">
-                            <div class="news-author">
-                                <div class="author-avatar"></div>
-                                <span class="author-name">DeFi Analyst</span>
-                            </div>
-                            <span class="news-date">3 jam lalu</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="news-card glass">
-                    <div class="news-image">
-                        <span class="news-category">NFT</span>
-                    </div>
-                    <div class="news-content">
-                        <h3 class="news-title">NFT Gaming Revolution: Play-to-Earn 2.0</h3>
-                        <p class="news-excerpt">
-                            Generasi baru game NFT menghadirkan ekonomi yang lebih stabil dan sustainable 
-                            bagi pemain, dengan mekanisme reward yang lebih adil.
-                        </p>
-                        <div class="news-footer">
-                            <div class="news-author">
-                                <div class="author-avatar"></div>
-                                <span class="author-name">Gaming Expert</span>
-                            </div>
-                            <span class="news-date">5 jam lalu</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="news-card glass">
-                    <div class="news-image">
-                        <span class="news-category">WEB3</span>
-                    </div>
-                    <div class="news-content">
-                        <h3 class="news-title">Dekentralisasi Social Media dengan Web3</h3>
-                        <p class="news-excerpt">
-                            Platform media sosial berbasis blockchain memberikan kontrol data kembali 
-                            ke pengguna dan menghilangkan iklan yang mengganggu.
-                        </p>
-                        <div class="news-footer">
-                            <div class="news-author">
-                                <div class="author-avatar"></div>
-                                <span class="author-name">Web3 Pioneer</span>
-                            </div>
-                            <span class="news-date">7 jam lalu</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    function initStorage() {
+        if (!localStorage.getItem(STORAGE.USERS)) {
+            localStorage.setItem(STORAGE.USERS, JSON.stringify([
+                { email: "demo@traderx.com", password: "demo123", name: "Demo Trader", role: "free", balance: 12500, profitToday: 340, totalTrades: 28, winrate: 64 }
+            ]));
+        }
+        if (!localStorage.getItem(STORAGE.SIGNALS)) localStorage.setItem(STORAGE.SIGNALS, JSON.stringify(defaultSignals));
+        if (!localStorage.getItem(STORAGE.JOURNALS)) localStorage.setItem(STORAGE.JOURNALS, JSON.stringify([]));
+        if (!localStorage.getItem(STORAGE.ACTIVITIES)) localStorage.setItem(STORAGE.ACTIVITIES, JSON.stringify(defaultActivities));
+        if (!localStorage.getItem(STORAGE.EDU_PROGRESS)) localStorage.setItem(STORAGE.EDU_PROGRESS, JSON.stringify({}));
+    }
+    initStorage();
 
-    <!-- Newsletter -->
-    <section class="newsletter">
-        <div class="container">
-            <div class="newsletter-content">
-                <h2 class="newsletter-title">Tetap Update dengan CryptoPulse</h2>
-                <p class="newsletter-subtitle">
-                    Dapatkan berita eksklusif, analisis mendalam, dan insights premium langsung ke inbox Anda. 
-                    Bergabung dengan 50,000+ investor cerdas lainnya.
-                </p>
-                <form class="newsletter-form">
-                    <input type="email" class="newsletter-input" placeholder="Masukkan alamat email Anda" required>
-                    <button type="submit" class="btn btn-accent">Berlangganan <i class="fas fa-paper-plane"></i></button>
-                </form>
-                <p style="margin-top: 20px; color: rgba(255, 255, 255, 0.7); font-size: 14px;">
-                    Dengan berlangganan, Anda menyetujui <a href="#" style="color: white; text-decoration: underline;">Syarat & Ketentuan</a> 
-                    dan <a href="#" style="color: white; text-decoration: underline;">Kebijakan Privasi</a> kami.
-                </p>
-            </div>
-        </div>
-    </section>
+    let currentUser = JSON.parse(localStorage.getItem(STORAGE.CURRENT));
+    let currentPage = "home";
+    let chartInstance = null;
+    let balanceChartInstance = null;
+    let liveInterval = null;
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <a href="#" class="logo">
-                        <div class="logo-icon">
-                            <i class="fas fa-bolt"></i>
-                        </div>
-                        <span class="logo-gradient">CryptoPulse</span>
-                    </a>
-                    <p class="footer-description">
-                        Platform berita kripto terdepan di Indonesia yang menghadirkan informasi 
-                        akurat, analisis mendalam, dan insights eksklusif untuk investor cerdas.
-                    </p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-telegram"></i></a>
-                        <a href="#"><i class="fab fa-discord"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Kategori</h3>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Bitcoin & Crypto</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Blockchain Tech</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> DeFi & Staking</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> NFT & Metaverse</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Regulation & Law</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Perusahaan</h3>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Tentang Kami</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Tim Redaksi</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Karier</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Kontak</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Iklan & Partnership</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Legal</h3>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Syarat & Ketentuan</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Kebijakan Privasi</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Disclaimer Investasi</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Cookie Policy</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Kode Etik</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2026 CryptoPulse. All rights reserved.</p>
-                <p class="footer-description" style="margin-top: 10px; font-size: 14px;">
-                    Informasi yang disajikan hanya untuk tujuan edukasi dan bukan merupakan saran investasi. 
-                    Lakukan riset independen sebelum mengambil keputusan investasi.
-                </p>
-                <div class="copyright-links">
-                    <a href="#">Kebijakan Konten</a>
-                    <a href="#">Laporkan Bug</a>
-                    <a href="#">Peta Situs</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    function getUsers() { return JSON.parse(localStorage.getItem(STORAGE.USERS)); }
+    function saveUser(user) {
+        let users = getUsers();
+        const idx = users.findIndex(u => u.email === user.email);
+        if (idx !== -1) users[idx] = user;
+        localStorage.setItem(STORAGE.USERS, JSON.stringify(users));
+        localStorage.setItem(STORAGE.CURRENT, JSON.stringify(user));
+        currentUser = user;
+    }
+    function showToast(msg, isError = false) {
+        let toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.innerHTML = `${isError ? '⚠️ ' : '✅ '}${msg}`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 2600);
+    }
+    function addActivity(text) {
+        let acts = JSON.parse(localStorage.getItem(STORAGE.ACTIVITIES));
+        acts.unshift({ id: Date.now(), text, timestamp: Date.now() });
+        if (acts.length > 15) acts.pop();
+        localStorage.setItem(STORAGE.ACTIVITIES, JSON.stringify(acts));
+    }
 
-    <script>
-        // Header scroll effect
-        window.addEventListener('scroll', function() {
-            const header = document.getElementById('header');
-            if (window.scrollY > 100) {
-                header.classList.add('scrolled');
+    // ======================== RENDER ========================
+    function render() {
+        if (!currentUser) { renderAuth(); return; }
+        const root = document.getElementById('appRoot');
+        let content = '';
+        switch (currentPage) {
+            case 'home': content = renderHome(); break;
+            case 'signals': content = renderSignals(); break;
+            case 'journal': content = renderJournal(); break;
+            case 'calculator': content = renderCalculator(); break;
+            case 'education': content = renderEducation(); break;
+            case 'membership': content = renderMembership(); break;
+            case 'profile': content = renderProfile(); break;
+            default: content = renderHome();
+        }
+        root.innerHTML = content + renderBottomNav();
+        attachNavEvents();
+        attachPageEvents();
+        if (currentPage === 'home') {
+            initBalanceChart();
+            startLiveUpdates();
+        } else {
+            if (liveInterval) clearInterval(liveInterval);
+        }
+    }
+
+    // ======================== AUTH ========================
+    function renderAuth() {
+        const root = document.getElementById('appRoot');
+        root.innerHTML = `
+            <div class="container" style="padding: 40px 20px;">
+                <div class="card" style="text-align:center;">
+                    <h1 style="font-size: 32px; background:linear-gradient(135deg,#00FFAA,#00D4FF); -webkit-background-clip:text; background-clip:text; color:transparent;">Trader X Academy</h1>
+                    <p class="mt-2">Edukasi + Kalkulator Pro</p>
+                </div>
+                <div class="card" id="authBox">
+                    <h3 id="authTitle">Login</h3>
+                    <input type="text" id="authName" placeholder="Nama" style="display:none;">
+                    <input type="email" id="authEmail" placeholder="Email">
+                    <input type="password" id="authPass" placeholder="Password">
+                    <button class="btn btn-primary" id="authBtn">Login</button>
+                    <p class="flex-between mt-2"><a href="#" id="switchAuth" style="color:#00FFAA;">Belum punya akun? Daftar</a></p>
+                    <p class="small" style="font-size:12px; text-align:center;">demo@traderx.com / demo123</p>
+                </div>
+            </div>
+        `;
+        let isLogin = true;
+        const title = document.getElementById('authTitle');
+        const btn = document.getElementById('authBtn');
+        const switchLink = document.getElementById('switchAuth');
+        const nameField = document.getElementById('authName');
+        const emailInp = document.getElementById('authEmail');
+        const passInp = document.getElementById('authPass');
+
+        function handleAuth() {
+            const email = emailInp.value.trim();
+            const pass = passInp.value.trim();
+            if (!email || !pass) return showToast("Isi semua field", true);
+            const users = getUsers();
+            if (isLogin) {
+                const user = users.find(u => u.email === email && u.password === pass);
+                if (user) {
+                    localStorage.setItem(STORAGE.CURRENT, JSON.stringify(user));
+                    currentUser = user;
+                    showToast(`Selamat datang ${user.name}`);
+                    render();
+                } else showToast("Email atau password salah", true);
             } else {
-                header.classList.remove('scrolled');
+                if (users.find(u => u.email === email)) return showToast("Email sudah terdaftar", true);
+                const name = nameField.value.trim() || email.split('@')[0];
+                const newUser = { email, password: pass, name, role: "free", balance: 5000, profitToday: 0, totalTrades: 0, winrate: 0 };
+                users.push(newUser);
+                localStorage.setItem(STORAGE.USERS, JSON.stringify(users));
+                showToast("Registrasi berhasil, silakan login");
+                isLogin = true;
+                title.innerText = "Login";
+                btn.innerText = "Login";
+                switchLink.innerText = "Belum punya akun? Daftar";
+                nameField.style.display = "none";
+                emailInp.value = email;
+                passInp.value = "";
             }
-        });
-
-        // Mobile menu toggle
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const navLinks = document.querySelector('.nav-links');
-        const navActions = document.querySelector('.nav-actions');
-
-        mobileMenu.addEventListener('click', function() {
-            const isVisible = navLinks.style.display === 'flex';
-            
-            navLinks.style.display = isVisible ? 'none' : 'flex';
-            navActions.style.display = isVisible ? 'none' : 'flex';
-            
-            if (!isVisible) {
-                navLinks.style.flexDirection = 'column';
-                navLinks.style.position = 'fixed';
-                navLinks.style.top = '80px';
-                navLinks.style.left = '0';
-                navLinks.style.right = '0';
-                navLinks.style.background = 'rgba(15, 15, 35, 0.98)';
-                navLinks.style.backdropFilter = 'blur(20px)';
-                navLinks.style.padding = '30px';
-                navLinks.style.gap = '25px';
-                navLinks.style.borderBottom = '1px solid rgba(255, 255, 255, 0.05)';
-                navLinks.style.boxShadow = 'var(--shadow)';
-                navLinks.style.zIndex = '999';
-                
-                navActions.style.flexDirection = 'column';
-                navActions.style.position = 'fixed';
-                navActions.style.top = '280px';
-                navActions.style.left = '0';
-                navActions.style.right = '0';
-                navActions.style.padding = '30px';
-                navActions.style.gap = '20px';
-                navActions.style.background = 'rgba(15, 15, 35, 0.98)';
-                navActions.style.backdropFilter = 'blur(20px)';
-                navActions.style.zIndex = '999';
-            }
-        });
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.navbar') && window.innerWidth <= 768) {
-                navLinks.style.display = 'none';
-                navActions.style.display = 'none';
-            }
-        });
-
-        // Newsletter form submission
-        const newsletterForm = document.querySelector('.newsletter-form');
-        newsletterForm.addEventListener('submit', function(e) {
+        }
+        btn.onclick = handleAuth;
+        switchLink.onclick = (e) => {
             e.preventDefault();
-            const email = this.querySelector('.newsletter-input').value;
-            
-            if (email) {
-                // Show success message
-                const originalContent = newsletterForm.innerHTML;
-                newsletterForm.innerHTML = `
-                    <div style="text-align: center; color: white;">
-                        <i class="fas fa-check-circle" style="font-size: 48px; margin-bottom: 20px; color: var(--accent);"></i>
-                        <h3 style="margin-bottom: 10px;">Berhasil Berlangganan!</h3>
-                        <p>Terima kasih telah bergabung dengan CryptoPulse. Kami akan mengirimkan email konfirmasi ke ${email}.</p>
+            isLogin = !isLogin;
+            title.innerText = isLogin ? "Login" : "Register";
+            btn.innerText = isLogin ? "Login" : "Daftar";
+            switchLink.innerText = isLogin ? "Belum punya akun? Daftar" : "Sudah punya akun? Login";
+            nameField.style.display = isLogin ? "none" : "block";
+        };
+    }
+
+    // ======================== HOME ========================
+    function renderHome() {
+        const journals = JSON.parse(localStorage.getItem(STORAGE.JOURNALS)).filter(j => j.userEmail === currentUser.email);
+        const totalTrades = journals.length;
+        const wins = journals.filter(j => j.profit > 0).length;
+        const winrate = totalTrades ? ((wins / totalTrades) * 100).toFixed(0) : 0;
+        currentUser.totalTrades = totalTrades;
+        currentUser.winrate = parseInt(winrate);
+        currentUser.profitToday = journals.filter(j => new Date(j.date).toDateString() === new Date().toDateString()).reduce((s,j)=>s+j.profit,0);
+        saveUser(currentUser);
+
+        const videos = [
+            { title: "Smart Money Concept", channel: "Trader X", embed: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
+            { title: "Scalping Strategy", channel: "Pro Trader", embed: "https://www.youtube.com/embed/3JZ_D3ELwOQ" }
+        ];
+        const news = [
+            { title: "Gold Menuju ATH", img: "https://picsum.photos/id/26/400/200" },
+            { title: "BTC Dominance 52%", img: "https://picsum.photos/id/104/400/200" }
+        ];
+        let activities = JSON.parse(localStorage.getItem(STORAGE.ACTIVITIES)).slice(0, 5);
+
+        return `
+            <div class="container page">
+                <div class="flex-between">
+                    <div><h2>Welcome, ${currentUser.name}</h2><p>${currentUser.role === 'premium' ? '💎 Premium' : '🆓 Free'}</p></div>
+                    <div class="badge ${currentUser.role === 'premium' ? 'badge-premium' : ''}">${currentUser.role.toUpperCase()}</div>
+                </div>
+                <div class="card">
+                    <div class="flex-between">
+                        <span>💰 Balance</span>
+                        <span class="stat-value" id="balanceDisplay">$${currentUser.balance}</span>
+                        <span class="edit-icon" id="editBalanceBtn">✏️ Edit</span>
+                    </div>
+                    <div class="flex-between"><span>📈 Today Profit</span><span class="${currentUser.profitToday>=0?'profit-positive':'profit-negative'}">$${currentUser.profitToday}</span></div>
+                    <div class="flex-between"><span>📊 Total Trades</span><span>${currentUser.totalTrades}</span></div>
+                    <div class="flex-between"><span>🏆 Winrate</span><span>${currentUser.winrate}%</span></div>
+                </div>
+                <div class="card">
+                    <div class="flex-between"><span>📈 Balance History</span></div>
+                    <canvas id="balanceHistoryChart" height="100"></canvas>
+                </div>
+                <div class="card">
+                    <div class="flex-between"><span>🎥 Update & Edukasi Video</span></div>
+                    <div class="video-carousel">
+                        ${videos.map(v => `<div class="video-card"><div class="video-thumb"><iframe src="${v.embed}" frameborder="0"></iframe></div><div class="video-info"><div class="video-title">${v.title}</div><div class="video-channel">${v.channel}</div></div></div>`).join('')}
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="flex-between"><span>🖼️ Market Update</span></div>
+                    <div class="news-carousel">
+                        ${news.map(n => `<div class="news-card"><img class="news-img" src="${n.img}"><div class="news-title">${n.title}</div></div>`).join('')}
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="flex-between"><span>⚡ Aktivitas Terbaru</span></div>
+                    <div id="activityFeed">${activities.map(act => `<div class="activity-item">${act.text}<br><span class="small">${new Date(act.timestamp).toLocaleTimeString()}</span></div>`).join('')}</div>
+                </div>
+                <div class="grid-2">
+                    <div class="quick-btn" data-nav="calculator">🧮 Kalkulator</div>
+                    <div class="quick-btn" data-nav="journal">📓 Jurnal</div>
+                    <div class="quick-btn" data-nav="signals">📡 Signal</div>
+                    <div class="quick-btn" data-nav="education">📘 Edukasi</div>
+                </div>
+                <div class="card">
+                    <div class="flex-between"><span>🌍 Market Snapshot (Live)</span><span id="liveMarketTime"></span></div>
+                    <div id="liveMarketData">
+                        <div class="market-item">BTC/USD <span class="up">+2.4%</span></div>
+                        <div class="market-item">XAUUSD <span class="up">+0.8%</span></div>
+                        <div class="market-item">EUR/USD <span class="down">-0.3%</span></div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    function initBalanceChart() {
+        const ctx = document.getElementById('balanceHistoryChart')?.getContext('2d');
+        if (!ctx) return;
+        if (balanceChartInstance) balanceChartInstance.destroy();
+        const journals = JSON.parse(localStorage.getItem(STORAGE.JOURNALS)).filter(j => j.userEmail === currentUser.email);
+        journals.sort((a,b) => a.date - b.date);
+        let profitPoints = [0];
+        let labels = ['Start'];
+        let sum = 0;
+        journals.forEach((j, idx) => { sum += j.profit; profitPoints.push(sum); labels.push(`T${idx+1}`); });
+        balanceChartInstance = new Chart(ctx, {
+            type: 'line',
+            data: { labels, datasets: [{ label: 'Cumulative P&L', data: profitPoints, borderColor: '#00FFAA', backgroundColor: 'rgba(0,255,170,0.1)', tension: 0.3, fill: true }] },
+            options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { display: false } } }
+        });
+    }
+
+    function startLiveUpdates() {
+        if (liveInterval) clearInterval(liveInterval);
+        liveInterval = setInterval(() => {
+            const btc = (Math.random() * 3 - 1).toFixed(1);
+            const gold = (Math.random() * 2 - 0.5).toFixed(1);
+            const eur = (Math.random() * 2 - 1).toFixed(1);
+            const marketDiv = document.getElementById('liveMarketData');
+            if (marketDiv) marketDiv.innerHTML = `<div class="market-item">BTC/USD <span class="${btc>=0?'up':'down'}">${btc>=0?'+':''}${btc}%</span></div><div class="market-item">XAUUSD <span class="${gold>=0?'up':'down'}">${gold>=0?'+':''}${gold}%</span></div><div class="market-item">EUR/USD <span class="${eur>=0?'up':'down'}">${eur>=0?'+':''}${eur}%</span></div>`;
+            const timeSpan = document.getElementById('liveMarketTime');
+            if (timeSpan) timeSpan.innerText = new Date().toLocaleTimeString();
+        }, 10000);
+    }
+
+    function attachBalanceEdit() {
+        const editBtn = document.getElementById('editBalanceBtn');
+        if (editBtn) editBtn.onclick = () => {
+            let newBalance = prompt("Balance baru (USD):", currentUser.balance);
+            if (newBalance && !isNaN(parseFloat(newBalance))) {
+                currentUser.balance = parseFloat(newBalance);
+                saveUser(currentUser);
+                showToast("Balance diperbarui");
+                render();
+            }
+        };
+    }
+
+    // ======================== KALKULATOR PRO ========================
+    function renderCalculator() {
+        return `
+            <div class="container page">
+                <h2>🧮 Forex Calculator</h2>
+                <div class="card">
+                    <label class="calc-label">Account Balance (USD)</label>
+                    <input type="number" id="calcBalance" value="100" step="1">
+                    <label class="calc-label">Risk Percentage (%)</label>
+                    <input type="number" id="calcRisk" value="20" step="0.5">
+                    <label class="calc-label">Risk to Reward Ratio</label>
+                    <input type="text" id="calcRR" value="1:4" placeholder="1:4">
+                    <label class="calc-label">Stop Loss (pip)</label>
+                    <input type="number" id="calcSL" value="10" step="1">
+                    <label class="calc-label">Step (jumlah compounding)</label>
+                    <input type="number" id="calcStep" value="6" step="1" min="1" max="20">
+                    <button id="calcBtn" class="btn btn-primary mt-2">Calculate</button>
+                    <div id="calcResults"></div>
+                </div>
+            </div>
+        `;
+    }
+
+    function calculateForex() {
+        let balance = parseFloat(document.getElementById('calcBalance').value);
+        let riskPercent = parseFloat(document.getElementById('calcRisk').value);
+        let rrInput = document.getElementById('calcRR').value;
+        let slPip = parseFloat(document.getElementById('calcSL').value);
+        let steps = parseInt(document.getElementById('calcStep').value);
+        if (isNaN(balance) || isNaN(riskPercent) || isNaN(slPip) || isNaN(steps)) return;
+
+        let rrMatch = rrInput.match(/(\d+):(\d+)/);
+        let rewardRatio = rrMatch ? parseFloat(rrMatch[2]) / parseFloat(rrMatch[1]) : 4;
+        let amountAtRisk = balance * (riskPercent / 100);
+        let pipValue = amountAtRisk / slPip;
+        let lots = pipValue / 10;
+        let netStopLoss = amountAtRisk;
+        let netTakeProfit = amountAtRisk * rewardRatio;
+
+        let currentBalance = balance;
+        let stepsHtml = '';
+        for (let i = 1; i <= steps; i++) {
+            let profitStep = currentBalance * (riskPercent / 100) * rewardRatio;
+            let newBalance = currentBalance + profitStep;
+            stepsHtml += `<div class="profit-step">Profit Step ${i}: ${profitStep.toFixed(2)} USD<br>Balance: ${newBalance.toFixed(2)} USD</div>`;
+            currentBalance = newBalance;
+        }
+        let totalProfit = currentBalance - balance;
+
+        const resultDiv = document.getElementById('calcResults');
+        resultDiv.innerHTML = `
+            <div class="result-box">
+                <div class="flex-between"><span>Amount at Risk:</span><span>${amountAtRisk.toFixed(2)} USD</span></div>
+                <div class="flex-between"><span>Pip Value:</span><span>${pipValue.toFixed(2)} USD</span></div>
+                <div class="flex-between"><span>Lots:</span><span>${lots.toFixed(2)}</span></div>
+                <div class="flex-between"><span>Net Stop Loss:</span><span>${netStopLoss.toFixed(2)} USD</span></div>
+                <div class="flex-between"><span>Net Take Profit:</span><span>${netTakeProfit.toFixed(2)} USD</span></div>
+            </div>
+            <div class="result-box mt-2">
+                <h4>📈 Compounding Steps (${steps}x)</h4>
+                ${stepsHtml}
+            </div>
+            <div class="result-box mt-2">
+                <div class="flex-between"><span>Total Profit after ${steps} steps:</span><span class="profit-positive">${totalProfit.toFixed(2)} USD</span></div>
+                <div class="flex-between"><span>Final Balance:</span><span>${currentBalance.toFixed(2)} USD</span></div>
+            </div>
+            <div class="result-box mt-2">
+                <h4>📊 Detailed Analysis</h4>
+                <p>Risk per trade: ${riskPercent}% of balance<br>Risk-to-Reward: 1:${rewardRatio}<br>Compounding aktif menghasilkan growth eksponensial.</p>
+                <h4>📅 Monthly Projections</h4>
+                <p>Jika ${steps} step dalam sebulan, profit potensial: ~${(totalProfit * (30/steps)).toFixed(0)} USD</p>
+                <h4>⚠️ Risk Metrics</h4>
+                <p>Max Drawdown: ${(amountAtRisk/balance*100).toFixed(1)}% per trade<br>Disarankan risk ≤2% per trade.</p>
+                <h4>💡 Trading Tips:</h4>
+                <ul style="margin-left: 20px;"><li>Never risk more than 2% per trade</li><li>Consider reducing risk after consecutive losses</li><li>Monitor your maximum drawdown carefully</li><li>Adjust position size based on volatility</li></ul>
+            </div>
+        `;
+    }
+
+    // ======================== EDUKASI PREMIUM (seperti gambar) ========================
+    function renderEducation() {
+        let eduProgress = JSON.parse(localStorage.getItem(STORAGE.EDU_PROGRESS))[currentUser.email] || {};
+        const materials = educationData.map(edu => {
+            const isLocked = edu.premium && currentUser.role !== 'premium';
+            const readCount = edu.readCount; // bisa dari progress nanti
+            return `
+                <div class="edu-card ${isLocked ? 'premium-lock' : ''}" data-id="${edu.id}">
+                    <div class="edu-title">${edu.title}</div>
+                    <div class="edu-desc">${edu.desc}</div>
+                    <div class="edu-footer">
+                        <span class="edu-badge">${edu.level}</span>
+                        <span class="edu-number">${readCount}</span>
+                    </div>
+                    ${edu.premium && currentUser.role !== 'premium' ? '<div style="margin-top:8px;"><small>🔒 Premium Content</small></div>' : ''}
+                </div>
+            `;
+        }).join('');
+        return `
+            <div class="container page">
+                <h2>📘 Materi Edukasi</h2>
+                <div id="educationList">${materials}</div>
+                <div class="card mt-2">
+                    <p class="small">✨ Upgrade ke Premium untuk akses materi eksklusif & video lengkap.</p>
+                </div>
+            </div>
+        `;
+    }
+
+    function attachEducationEvents() {
+        document.querySelectorAll('.edu-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                const id = card.dataset.id;
+                const edu = educationData.find(e => e.id === id);
+                if (!edu) return;
+                if (edu.premium && currentUser.role !== 'premium') {
+                    showToast("Upgrade ke Premium untuk membaca materi ini", true);
+                    return;
+                }
+                // Tampilkan modal detail materi
+                const modal = document.createElement('div');
+                modal.className = 'modal';
+                modal.innerHTML = `
+                    <div class="modal-content">
+                        <h3 style="color:#00FFAA;">${edu.title}</h3>
+                        <p class="mt-2">${edu.content}</p>
+                        <div class="flex-between mt-2">
+                            <button id="closeEduModal" class="btn-outline">Tutup</button>
+                            <button id="markReadBtn" class="btn-primary">Tandai Selesai +10 Poin</button>
+                        </div>
                     </div>
                 `;
-                
-                // Reset after 5 seconds
-                setTimeout(() => {
-                    newsletterForm.innerHTML = originalContent;
-                    newsletterForm.querySelector('.newsletter-input').value = '';
-                }, 5000);
-            }
-        });
-
-        // Animate market ticker
-        const tickerItems = document.querySelectorAll('.ticker-item');
-        tickerItems.forEach((item, index) => {
-            // Add delay for each item
-            item.style.animationDelay = `${index * 0.1}s`;
-            
-            // Simulate price updates
-            setInterval(() => {
-                const priceElement = item.querySelector('.ticker-price');
-                const changeElement = item.querySelector('.ticker-change');
-                
-                if (Math.random() > 0.5) {
-                    // Simulate price increase
-                    const currentPrice = parseFloat(priceElement.textContent.replace('$', '').replace(',', ''));
-                    const change = (Math.random() * 3 + 1).toFixed(2);
-                    const newPrice = (currentPrice * (1 + change/100)).toFixed(2);
-                    
-                    priceElement.textContent = `$${parseFloat(newPrice).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-                    changeElement.textContent = `+${change}%`;
-                    changeElement.className = 'ticker-change positive';
-                } else {
-                    // Simulate price decrease
-                    const currentPrice = parseFloat(priceElement.textContent.replace('$', '').replace(',', ''));
-                    const change = (Math.random() * 2 + 0.5).toFixed(2);
-                    const newPrice = (currentPrice * (1 - change/100)).toFixed(2);
-                    
-                    priceElement.textContent = `$${parseFloat(newPrice).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-                    changeElement.textContent = `-${change}%`;
-                    changeElement.className = 'ticker-change negative';
-                }
-            }, 5000 + (index * 1000));
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    if (window.innerWidth <= 768) {
-                        navLinks.style.display = 'none';
-                        navActions.style.display = 'none';
+                document.body.appendChild(modal);
+                document.getElementById('closeEduModal').onclick = () => modal.remove();
+                document.getElementById('markReadBtn').onclick = () => {
+                    // update progress
+                    let progressAll = JSON.parse(localStorage.getItem(STORAGE.EDU_PROGRESS)) || {};
+                    let userProg = progressAll[currentUser.email] || { readIds: [] };
+                    if (!userProg.readIds.includes(edu.id)) {
+                        userProg.readIds.push(edu.id);
+                        progressAll[currentUser.email] = userProg;
+                        localStorage.setItem(STORAGE.EDU_PROGRESS, JSON.stringify(progressAll));
+                        // tambah poin
+                        currentUser.balance += 10; // bonus poin ke balance?
+                        saveUser(currentUser);
+                        addActivity(`Membaca materi "${edu.title}" dan mendapat +10 poin`);
+                        showToast("+10 poin edukasi");
+                        modal.remove();
+                        render();
+                    } else {
+                        showToast("Anda sudah membaca materi ini");
+                        modal.remove();
                     }
-                }
+                };
             });
         });
+    }
 
-        // Add hover effect to cards
-        const cards = document.querySelectorAll('.news-card, .stat-card, .secondary-featured');
-        cards.forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = this.classList.contains('news-card') ? 'translateY(-10px)' : 'translateY(-5px)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-            });
+    // ======================== SIGNAL, JURNAL DLL ========================
+    function renderSignals() {
+        let signals = JSON.parse(localStorage.getItem(STORAGE.SIGNALS));
+        signals.sort((a,b) => b.createdAt - a.createdAt);
+        return `<div class="container page"><h2>📡 Signal Trading</h2>${signals.map(s => `<div class="card"><div class="flex-between"><b>${s.pair}</b>${s.premium ? '<span class="badge-premium">PREMIUM</span>' : ''}</div><div>Entry: ${s.entry} | TP: ${s.tp} | SL: ${s.sl}</div><div>Status: ${s.status}</div></div>`).join('')}</div>`;
+    }
+
+    function renderJournal() {
+        let journals = JSON.parse(localStorage.getItem(STORAGE.JOURNALS)).filter(j => j.userEmail === currentUser.email);
+        return `<div class="container page"><div class="flex-between"><h2>📓 Trading Journal</h2><button id="addJournalBtn" class="btn-primary" style="width:auto;">+</button></div><div id="journalList">${journals.slice().reverse().map(j => `<div class="card"><div class="flex-between"><b>${j.pair}</b><span class="${j.profit>=0?'profit-positive':'profit-negative'}">$${j.profit}</span></div><div class="small">${new Date(j.date).toLocaleString()}</div><button class="delJournal btn-outline" data-id="${j.id}">Hapus</button></div>`).join('')}</div></div>`;
+    }
+    function attachJournalEvents() {
+        document.getElementById('addJournalBtn')?.addEventListener('click', () => {
+            const modal = document.createElement('div'); modal.className = 'modal';
+            modal.innerHTML = `<div class="modal-content"><h3>New Trade</h3><input id="jPair" placeholder="Pair"><input id="jProfit" type="number" placeholder="Profit/Loss USD"><button id="saveJournal" class="btn-primary">Simpan</button><button id="closeJournal" class="btn-outline">Batal</button></div>`;
+            document.body.appendChild(modal);
+            document.getElementById('saveJournal').onclick = () => {
+                let journals = JSON.parse(localStorage.getItem(STORAGE.JOURNALS));
+                journals.push({ id: Date.now(), userEmail: currentUser.email, pair: document.getElementById('jPair').value, profit: parseFloat(document.getElementById('jProfit').value), date: Date.now() });
+                localStorage.setItem(STORAGE.JOURNALS, JSON.stringify(journals));
+                addActivity(`Trade ${document.getElementById('jPair').value} profit $${document.getElementById('jProfit').value}`);
+                modal.remove(); render();
+            };
+            document.getElementById('closeJournal').onclick = () => modal.remove();
         });
+        document.querySelectorAll('.delJournal').forEach(btn => btn.onclick = () => {
+            let id = btn.dataset.id;
+            let journals = JSON.parse(localStorage.getItem(STORAGE.JOURNALS));
+            journals = journals.filter(j => j.id != id);
+            localStorage.setItem(STORAGE.JOURNALS, JSON.stringify(journals));
+            render();
+        });
+    }
 
-        // Update time on articles
-        function updateArticleTimes() {
-            const timeElements = document.querySelectorAll('.news-date, .secondary-meta span:last-child');
-            
-            timeElements.forEach(element => {
-                const text = element.textContent;
-                if (text.includes('jam')) {
-                    const hours = parseInt(text);
-                    const newHours = hours + 1;
-                    element.textContent = text.replace(hours.toString(), newHours.toString());
-                }
-            });
+    function renderMembership() { return `<div class="container page"><h2>👑 Membership</h2><div class="card"><h3>${currentUser.role === 'premium' ? 'Premium' : 'Free'}</h3><button id="upgradeBtn" class="btn-primary">Upgrade Premium</button></div></div>`; }
+    function attachMembershipEvents() { document.getElementById('upgradeBtn')?.addEventListener('click', () => { currentUser.role = 'premium'; saveUser(currentUser); showToast("Premium aktif!"); render(); }); }
+    function renderProfile() { return `<div class="container page"><h2>⚙️ Profile</h2><div class="card"><div>Nama: ${currentUser.name}</div><div>Email: ${currentUser.email}</div><button id="logoutBtn" class="btn-outline">Logout</button></div></div>`; }
+    function attachProfileEvents() { document.getElementById('logoutBtn')?.addEventListener('click', () => { localStorage.removeItem(STORAGE.CURRENT); currentUser = null; render(); }); }
+
+    // ======================== NAVIGATION ========================
+    function renderBottomNav() {
+        const items = [
+            { id: 'home', icon: '🏠', label: 'Home' },
+            { id: 'signals', icon: '📊', label: 'Signal' },
+            { id: 'journal', icon: '📓', label: 'Journal' },
+            { id: 'calculator', icon: '🧮', label: 'Calc' },
+            { id: 'education', icon: '📘', label: 'Edukasi' }
+        ];
+        return `<div class="bottom-nav">${items.map(item => `<button class="nav-item ${currentPage === item.id ? 'active' : ''}" data-nav="${item.id}"><span>${item.icon}</span><span>${item.label}</span></button>`).join('')}</div>`;
+    }
+
+    function attachNavEvents() {
+        document.querySelectorAll('[data-nav]').forEach(el => {
+            el.addEventListener('click', (e) => { const nav = el.dataset.nav; if (nav) { currentPage = nav; render(); } });
+        });
+        if (currentPage === 'home') attachBalanceEdit();
+        if (currentPage === 'journal') attachJournalEvents();
+        if (currentPage === 'calculator') {
+            document.getElementById('calcBtn')?.addEventListener('click', calculateForex);
+            calculateForex();
         }
+        if (currentPage === 'membership') attachMembershipEvents();
+        if (currentPage === 'profile') attachProfileEvents();
+        if (currentPage === 'education') attachEducationEvents();
+    }
+    function attachPageEvents() {}
 
-        // Update times every hour
-        setInterval(updateArticleTimes, 3600000);
-
-        // Add parallax effect to hero illustration
-        window.addEventListener('scroll', function() {
-            const scrolled = window.pageYOffset;
-            const rate = scrolled * -0.5;
-            
-            const heroIllustration = document.querySelector('.hero-illustration');
-            if (heroIllustration) {
-                heroIllustration.style.transform = `translateY(calc(-50% + ${rate}px))`;
-            }
-        });
-
-        // Initialize animations on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe elements for animation
-        document.querySelectorAll('.news-card, .stat-card, .featured-grid > *').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
-    </script>
+    render();
+</script>
 </body>
 </html>
