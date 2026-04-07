@@ -1,16 +1,15 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Trader X Academy | Premium Trading Platform</title>
+    <title>Trader X Academy | Premium Fintech Platform</title>
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <!-- Font Awesome 6 -->
+    <!-- Font Awesome 6 (free icons) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Inter + Space Grotesk -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -29,20 +28,20 @@
         .app-container {
             max-width: 500px;
             margin: 0 auto;
-            background: radial-gradient(circle at 20% 30%, #0F1219, #07090E);
+            background: radial-gradient(circle at 20% 10%, #0F1219, #03050A);
             min-height: 100vh;
-            box-shadow: 0 0 40px rgba(0,0,0,0.6);
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
             position: relative;
-            padding-top: 70px; /* space for top navbar */
+            padding-top: 70px;
             padding-bottom: 80px;
         }
 
-        /* Scrollbar */
+        /* scrollbar premium */
         ::-webkit-scrollbar { width: 4px; height: 4px; }
-        ::-webkit-scrollbar-track { background: #1A1F2A; }
-        ::-webkit-scrollbar-thumb { background: #2A6DFF; border-radius: 12px; }
+        ::-webkit-scrollbar-track { background: #1A1F2A; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #2A6DFF; border-radius: 10px; }
 
-        /* TOP NAVBAR (sticky glass) */
+        /* GLASS TOP NAVBAR */
         .top-navbar {
             position: fixed;
             top: 0;
@@ -56,87 +55,89 @@
             align-items: center;
             justify-content: space-between;
             padding: 14px 20px;
-            border-bottom: 1px solid rgba(42, 109, 255, 0.3);
+            border-bottom: 1px solid rgba(42, 109, 255, 0.35);
             z-index: 150;
-            border-radius: 0 0 24px 24px;
+            border-radius: 0 0 28px 28px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.3);
         }
-        .top-navbar .menu-icon, .top-navbar .notif-icon {
+        .top-navbar button {
             background: none;
             border: none;
             font-size: 24px;
             color: #EFF3F8;
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.2s ease;
         }
-        .top-navbar .app-title {
-            font-weight: 700;
+        .top-navbar button:hover { transform: scale(1.05); color: #2A6DFF; }
+        .app-title {
+            font-weight: 800;
             font-size: 18px;
             letter-spacing: 1px;
-            background: linear-gradient(135deg, #FFF, #2A6DFF);
+            background: linear-gradient(135deg, #FFFFFF, #2A6DFF, #00E6B2);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
 
-        /* SIDEBAR (offcanvas) */
+        /* SIDEBAR (glass offcanvas) */
         .sidebar-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(6px);
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(8px);
             z-index: 200;
             display: none;
-            transition: 0.2s;
+            transition: 0.25s;
         }
         .sidebar {
             position: fixed;
             top: 0;
-            left: -280px;
+            left: -300px;
             width: 280px;
             height: 100%;
-            background: #0E121C;
-            backdrop-filter: blur(20px);
-            border-right: 1px solid #2A6DFF;
+            background: rgba(14, 18, 28, 0.96);
+            backdrop-filter: blur(24px);
+            border-right: 1px solid rgba(42, 109, 255, 0.6);
             z-index: 201;
             transition: left 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            padding: 30px 20px;
+            padding: 32px 20px;
             display: flex;
             flex-direction: column;
-            gap: 24px;
-            box-shadow: 8px 0 30px rgba(0,0,0,0.5);
+            gap: 20px;
+            box-shadow: 8px 0 40px rgba(0,0,0,0.6);
         }
-        .sidebar.open {
-            left: 0;
-        }
+        .sidebar.open { left: 0; }
         .sidebar-item {
             display: flex;
             align-items: center;
             gap: 16px;
-            font-size: 18px;
-            font-weight: 500;
-            padding: 12px 16px;
-            border-radius: 40px;
+            font-size: 17px;
+            font-weight: 600;
+            padding: 12px 18px;
+            border-radius: 60px;
             background: transparent;
-            transition: 0.2s;
+            transition: all 0.2s;
             cursor: pointer;
             color: #B8C7FF;
         }
-        .sidebar-item i { width: 28px; font-size: 22px; }
+        .sidebar-item i { width: 28px; font-size: 20px; }
         .sidebar-item:hover, .sidebar-item.active-sidebar {
-            background: rgba(42, 109, 255, 0.2);
+            background: rgba(42, 109, 255, 0.25);
             color: white;
-            transform: translateX(6px);
+            transform: translateX(8px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
         .upgrade-sidebar {
-            background: linear-gradient(95deg, #FFB34720, #FF880020);
+            background: linear-gradient(95deg, rgba(255,180,71,0.2), rgba(255,136,0,0.1));
             border: 1px solid #FFB347;
             margin-top: auto;
+            color: #FFD966;
         }
 
-        /* Bottom nav */
+        /* BOTTOM NAVIGATION */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -148,85 +149,175 @@
             backdrop-filter: blur(20px);
             display: flex;
             justify-content: space-around;
-            padding: 12px 16px 20px;
-            border-top: 1px solid rgba(42, 109, 255, 0.2);
+            padding: 10px 16px 22px;
+            border-top: 1px solid rgba(42, 109, 255, 0.3);
             z-index: 100;
         }
         .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
             background: transparent;
             border: none;
             color: #8E9AAF;
-            font-size: 12px;
-            font-weight: 500;
+            font-size: 11px;
+            font-weight: 600;
             transition: all 0.2s ease;
             cursor: pointer;
         }
         .nav-item i { font-size: 22px; }
-        .nav-item.active { color: #2A6DFF; text-shadow: 0 0 6px rgba(42,109,255,0.5); transform: translateY(-2px); }
+        .nav-item.active { color: #2A6DFF; text-shadow: 0 0 8px rgba(42,109,255,0.6); transform: translateY(-3px); }
 
-        /* Pages */
+        /* PAGES */
         .page {
             display: none;
             padding: 20px 18px 30px;
-            animation: fadeIn 0.25s ease;
+            animation: fadeIn 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
         .page.active-page { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px);} to { opacity: 1; transform: translateY(0);} }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Cards & UI */
+        /* GLASS CARDS */
         .card {
-            background: rgba(20, 26, 36, 0.75);
-            backdrop-filter: blur(4px);
+            background: rgba(20, 26, 36, 0.65);
+            backdrop-filter: blur(8px);
             border-radius: 28px;
-            padding: 18px;
+            padding: 20px;
             margin-bottom: 20px;
-            border: 1px solid rgba(42, 109, 255, 0.2);
-            box-shadow: 0 12px 28px -8px rgba(0,0,0,0.5);
-            transition: transform 0.15s;
+            border: 1px solid rgba(42, 109, 255, 0.25);
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 24px 40px -12px black; border-color: rgba(42,109,255,0.5); }
+
+        /* BUTTONS */
         .glass-btn {
             background: linear-gradient(95deg, #1F2A44, #121A2A);
             border: none;
-            padding: 12px 18px;
+            padding: 12px 20px;
             border-radius: 40px;
-            font-weight: 600;
+            font-weight: 700;
             color: white;
             font-size: 14px;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .glass-btn.primary {
+            background: linear-gradient(135deg, #2A6DFF, #0047CA);
+            box-shadow: 0 6px 14px rgba(42,109,255,0.4);
+        }
+        .glass-btn.primary:hover { transform: scale(0.97); filter: brightness(1.05); }
+        .glass-btn:hover { transform: translateY(-2px); }
+
+        .badge {
+            background: rgba(42, 109, 255, 0.2);
+            border-radius: 60px;
+            padding: 6px 14px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #6D9EFF;
+        }
+        .profit-text { color: #00E6B2; font-weight: 800; }
+        .loss-text { color: #FF4D6D; font-weight: 800; }
+        hr { border-color: #2A3448; margin: 14px 0; }
+
+        /* HORIZONTAL SCROLL (SNAP) */
+        .scroll-x {
+            display: flex;
+            overflow-x: auto;
+            gap: 16px;
+            scroll-snap-type: x mandatory;
+            padding-bottom: 8px;
+        }
+        .video-card, .news-card-mini {
+            flex: 0 0 280px;
+            background: #11161F;
+            border-radius: 24px;
+            overflow: hidden;
+            scroll-snap-align: start;
+            border: 1px solid #2A3A55;
             transition: 0.2s;
         }
-        .glass-btn.primary { background: linear-gradient(135deg, #2A6DFF, #0047CA); box-shadow: 0 4px 12px rgba(42,109,255,0.3); }
-        .profit-text { color: #00E6B2; font-weight: 700; }
-        .loss-text { color: #FF4D6D; font-weight: 700; }
-        .badge { background: #2A6DFF20; border-radius: 40px; padding: 4px 12px; font-size: 12px; font-weight: 500; color: #6D9EFF; }
-        .scroll-x { display: flex; overflow-x: auto; gap: 16px; scroll-snap-type: x mandatory; padding-bottom: 8px; }
-        .video-card { flex: 0 0 280px; background: #11161F; border-radius: 24px; overflow: hidden; border: 1px solid #2A3A55; }
         iframe { width: 100%; height: 160px; border: none; }
-        .signal-item, .journal-item, .module-item { background: #0E121C; border-radius: 20px; padding: 14px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
-        .locked-module { filter: blur(4px); background: #161C28; pointer-events: none; position: relative; }
+        .signal-item, .journal-item, .module-item, .news-item {
+            background: #0E121C;
+            border-radius: 20px;
+            padding: 14px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.1s;
+        }
+        .locked-signal, .locked-module {
+            filter: blur(4px);
+            background: #161C28;
+            pointer-events: none;
+            position: relative;
+        }
+        .flex-between { display: flex; justify-content: space-between; align-items: center; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+        /* TOAST NOTIFICATIONS */
         .toast-msg {
             position: fixed;
-            bottom: 90px;
+            bottom: 100px;
             left: 20px;
             right: 20px;
             max-width: 460px;
             margin: 0 auto;
             background: #1E293B;
-            backdrop-filter: blur(16px);
-            border-left: 4px solid #2A6DFF;
-            padding: 12px 16px;
+            backdrop-filter: blur(20px);
+            border-left: 5px solid #2A6DFF;
+            padding: 14px 20px;
             border-radius: 60px;
+            font-weight: 500;
             z-index: 300;
-            animation: slideUp 0.2s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            animation: slideUp 0.25s ease;
         }
-        /* Login page */
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* MODAL */
+        .modal {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 500;
+        }
+        .modal-content {
+            background: #11161F;
+            border-radius: 40px;
+            width: 85%;
+            max-width: 380px;
+            padding: 28px;
+            border: 1px solid #2A6DFF;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.6);
+        }
+        input, select {
+            background: #0A0F18;
+            border: 1px solid #2A3A55;
+            padding: 14px 16px;
+            border-radius: 34px;
+            color: white;
+            width: 100%;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            font-family: 'Inter', sans-serif;
+            transition: 0.2s;
+        }
+        input:focus { border-color: #2A6DFF; outline: none; }
+
+        /* LOGIN PAGE */
         .login-container {
             max-width: 500px;
             margin: 0 auto;
@@ -234,45 +325,39 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: radial-gradient(circle at 30% 20%, #0B0F17, #03050A);
+            background: radial-gradient(circle at 30% 20%, #0B0F17, #020408);
             padding: 24px;
         }
         .login-card {
             background: rgba(16, 22, 32, 0.9);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(20px);
             border-radius: 48px;
-            padding: 32px 24px;
+            padding: 36px 28px;
             width: 100%;
             border: 1px solid #2A6DFF;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            box-shadow: 0 30px 50px rgba(0,0,0,0.7);
         }
-        .modal {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(8px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 400;
-        }
-        .modal-content { background: #11161F; border-radius: 32px; width: 85%; max-width: 380px; padding: 24px; border: 1px solid #2A6DFF; }
-        input, select { background: #0A0F18; border: 1px solid #2A3A55; padding: 12px 14px; border-radius: 24px; color: white; width: 100%; margin-top: 6px; margin-bottom: 14px; }
-        .flex-between { display: flex; justify-content: space-between; align-items: center; }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .glow-text { text-shadow: 0 0 6px #2A6DFF; }
     </style>
 </head>
 <body>
-<!-- LOGIN PAGE (hidden if logged in) -->
+
+<!-- LOGIN SCREEN (initial) -->
 <div id="loginScreen" style="display: flex;">
     <div class="login-container">
         <div class="login-card">
-            <div style="text-align:center; margin-bottom: 32px;"><i class="fas fa-chart-line fa-3x" style="color:#2A6DFF"></i><h1 style="margin-top:12px">Trader X Academy</h1><p>Premium trading ecosystem</p></div>
-            <input type="email" id="loginEmail" placeholder="Email address" value="demo@traderx.com">
-            <input type="password" id="loginPassword" placeholder="Password" value="password123">
-            <div class="flex-between" style="margin: 12px 0;"><label><input type="checkbox" id="rememberCheckbox"> Remember me</label></div>
-            <button class="glass-btn primary" id="doLoginBtn" style="width:100%; justify-content:center;">Login → Dashboard</button>
-            <p style="font-size:12px; text-align:center; margin-top:20px;">Demo: any email/password</p>
+            <div style="text-align:center; margin-bottom: 32px;">
+                <i class="fas fa-chart-line fa-3x" style="color:#2A6DFF; filter: drop-shadow(0 0 8px #2A6DFF);"></i>
+                <h1 style="margin-top: 16px; font-size: 28px;">Trader X Academy</h1>
+                <p style="color:#B0C4FF;">Premium trading ecosystem</p>
+            </div>
+            <input type="email" id="loginEmail" placeholder="Email address" value="elite@traderx.com">
+            <input type="password" id="loginPassword" placeholder="Password" value="trading2025">
+            <div class="flex-between" style="margin: 12px 0 20px;">
+                <label><input type="checkbox" id="rememberCheckbox"> <span style="font-size:13px;">Remember me</span></label>
+            </div>
+            <button class="glass-btn primary" id="doLoginBtn" style="width:100%; justify-content:center; padding:14px;">Login → Dashboard</button>
+            <p style="font-size:12px; text-align:center; margin-top: 24px; opacity:0.7;">Demo: any credentials</p>
         </div>
     </div>
 </div>
@@ -280,17 +365,17 @@
 <!-- MAIN APP (hidden until login) -->
 <div id="mainApp" style="display: none;">
     <div class="app-container">
-        <!-- Top Navbar -->
+        <!-- Top Bar -->
         <div class="top-navbar">
-            <button class="menu-icon" id="menuToggleBtn"><i class="fas fa-bars"></i></button>
+            <button id="menuToggleBtn"><i class="fas fa-bars"></i></button>
             <div class="app-title">TRADER X ACADEMY</div>
-            <button class="notif-icon" id="notifBellBtn"><i class="fas fa-bell"></i></button>
+            <button id="notifBellBtn"><i class="fas fa-bell"></i></button>
         </div>
 
-        <!-- Sidebar Overlay & Sidebar -->
+        <!-- Sidebar -->
         <div id="sidebarOverlay" class="sidebar-overlay"></div>
         <div id="sidebar" class="sidebar">
-            <div style="margin-bottom: 20px;"><i class="fas fa-crown" style="color: #FFB347; font-size: 32px;"></i><h3 style="margin-top: 8px;">Menu</h3></div>
+            <div style="margin-bottom: 10px;"><i class="fas fa-crown" style="color: #FFB347; font-size: 34px;"></i><h3 style="margin-top: 8px;">Navigation</h3></div>
             <div class="sidebar-item" data-side-page="home"><i class="fas fa-home"></i> Home</div>
             <div class="sidebar-item" data-side-page="signals"><i class="fas fa-chart-line"></i> Signals</div>
             <div class="sidebar-item" data-side-page="journal"><i class="fas fa-book-open"></i> Journal</div>
@@ -300,7 +385,7 @@
             <div class="sidebar-item upgrade-sidebar" id="sidebarUpgrade"><i class="fas fa-gem"></i> Upgrade Premium</div>
         </div>
 
-        <!-- Pages -->
+        <!-- PAGES -->
         <div id="homePage" class="page active-page"></div>
         <div id="signalsPage" class="page"></div>
         <div id="journalPage" class="page"></div>
@@ -320,56 +405,66 @@
 </div>
 
 <script>
-    // ---------- GLOBALS ----------
-    let journalEntries = [];
+    // ---------- GLOBAL STATE ----------
+    let journalEntries = [];        // trade logs
     let isPremium = false;
-    let userName = "Alex Trader";
-    let userEmail = "demo@traderx.com";
-    let balanceStarting = 10000;
+    let userName = "Alex Carter";
+    let userEmail = "elite@traderx.com";
+    const balanceStarting = 12500;
     let chartInstance = null;
     let activities = [];
-    let marketPrices = { BTC: 68250, GOLD: 2350, EURUSD: 1.0852 };
+    let marketPrices = { BTC: 68420, GOLD: 2365.5, EURUSD: 1.0925 };
     let signalsArray = [];
     let loggedIn = false;
 
-    // ---------- Helper Functions ----------
+    // ---------- DUMMY DATA ----------
     function buildSignals() {
         return [
-            { id: 1, pair: "BTC/USD", entry: 68400, tp: 69200, sl: 67800, status: "OPEN", createdAt: Date.now() - 86400000, premiumLocked: false },
-            { id: 2, pair: "EUR/USD", entry: 1.0865, tp: 1.0920, sl: 1.0820, status: "WIN", createdAt: Date.now() - 172800000, premiumLocked: false },
-            { id: 3, pair: "XAU/USD", entry: 2345, tp: 2360, sl: 2330, status: "OPEN", createdAt: Date.now() - 43200000, premiumLocked: false },
-            { id: 4, pair: "ETH/USD", entry: 3210, tp: 3350, sl: 3150, status: "OPEN", createdAt: Date.now() - 21600000, premiumLocked: true },
-            { id: 5, pair: "GBP/JPY", entry: 192.5, tp: 194.2, sl: 191.2, status: "LOSS", createdAt: Date.now() - 10800000, premiumLocked: true },
-            { id: 6, pair: "SOL/USD", entry: 165.4, tp: 175.2, sl: 160.1, status: "WIN", createdAt: Date.now() - 3600000, premiumLocked: true },
+            { id: 1, pair: "BTC/USD", entry: 68420, tp: 69500, sl: 67800, status: "OPEN", createdAt: Date.now() - 86400000, premiumLocked: false },
+            { id: 2, pair: "EUR/USD", entry: 1.0925, tp: 1.0980, sl: 1.0880, status: "WIN", createdAt: Date.now() - 172800000, premiumLocked: false },
+            { id: 3, pair: "XAU/USD", entry: 2365, tp: 2385, sl: 2345, status: "OPEN", createdAt: Date.now() - 43200000, premiumLocked: false },
+            { id: 4, pair: "ETH/USD", entry: 3250, tp: 3400, sl: 3170, status: "OPEN", createdAt: Date.now() - 21600000, premiumLocked: true },
+            { id: 5, pair: "GBP/JPY", entry: 193.2, tp: 195.5, sl: 191.8, status: "LOSS", createdAt: Date.now() - 10800000, premiumLocked: true },
+            { id: 6, pair: "SOL/USD", entry: 172.4, tp: 185.0, sl: 166.2, status: "WIN", createdAt: Date.now() - 3600000, premiumLocked: true },
+            { id: 7, pair: "NASDAQ", entry: 19850, tp: 20200, sl: 19650, status: "OPEN", createdAt: Date.now() - 7200000, premiumLocked: true }
         ];
     }
+
     const newsData = [
-        { id: 1, title: "Fed signals rate cut, crypto rallies", category: "Crypto", image: "https://picsum.photos/id/26/100/100", date: "2h ago", source: "Bloomberg" },
-        { id: 2, title: "Gold hits new record amid inflation fears", category: "Gold", image: "https://picsum.photos/id/29/100/100", date: "5h ago", source: "Reuters" },
-        { id: 3, title: "EURUSD volatility ahead of ECB", category: "Forex", image: "https://picsum.photos/id/35/100/100", date: "Yesterday", source: "FT" },
-    ];
-    // Education data
-    const eduVideos = [
-        { id: "dQw4w9WgXcQ", title: "Market Structure Pro" },
-        { id: "JfVOs4VSpmA", title: "Risk Management Core" },
-        { id: "3nXLaO--DqM", title: "Trading Psychology" },
-    ];
-    const eduModules = [
-        { id: 1, title: "Smart Money Concepts", desc: "Institutional order flow", premiumLocked: false },
-        { id: 2, title: "Advanced Risk Management", desc: "Position sizing & drawdown", premiumLocked: false },
-        { id: 3, title: "Entry Precision Strategy", desc: "High probability setups", premiumLocked: true },
-        { id: 4, title: "Market Profile & Volume", desc: "Auction theory", premiumLocked: true },
+        { id: 1, title: "Fed signals rate cuts in H2 2025", category: "Crypto", image: "https://picsum.photos/id/26/100/100", date: "2h ago", source: "Bloomberg" },
+        { id: 2, title: "Gold breaks resistance, targets $2400", category: "Gold", image: "https://picsum.photos/id/29/100/100", date: "5h ago", source: "Reuters" },
+        { id: 3, title: "EURUSD volatility ahead of ECB meeting", category: "Forex", image: "https://picsum.photos/id/35/100/100", date: "Yesterday", source: "FT" },
+        { id: 4, title: "Bitcoin dominance surges to 54%", category: "Crypto", image: "https://picsum.photos/id/20/100/100", date: "3h ago", source: "Coindesk" },
+        { id: 5, title: "Tech stocks rally, NVIDIA hits新高", category: "Stocks", image: "https://picsum.photos/id/0/100/100", date: "1d ago", source: "WSJ" },
+        { id: 6, title: "Oil prices decline, supply concerns ease", category: "Forex", image: "https://picsum.photos/id/42/100/100", date: "6h ago", source: "CNBC" }
     ];
 
+    const eduVideos = [
+        { id: "dQw4w9WgXcQ", title: "Smart Money Concepts Deep Dive" },
+        { id: "JfVOs4VSpmA", title: "Advanced Risk Management" },
+        { id: "3nXLaO--DqM", title: "Trading Psychology & Discipline" }
+    ];
+
+    const eduModules = [
+        { id: 1, title: "Smart Money Concepts", desc: "Institutional order flow & liquidity grabs", premiumLocked: false },
+        { id: 2, title: "Advanced Risk Management", desc: "Position sizing, drawdown control", premiumLocked: false },
+        { id: 3, title: "Entry Precision Strategy", desc: "High probability supply/demand zones", premiumLocked: true },
+        { id: 4, title: "Market Profile & Volume Profile", desc: "Auction market theory", premiumLocked: true },
+        { id: 5, title: "Psychology of Trading", desc: "Mental models for consistency", premiumLocked: true }
+    ];
+
+    // ---------- HELPERS ----------
     function loadStorage() {
         const storedJournal = localStorage.getItem("traderx_journal");
         if(storedJournal) journalEntries = JSON.parse(storedJournal);
-        else journalEntries = [
-            { id: Date.now()+1, pair: "BTC/USD", profitLoss: 320, dateISO: new Date(Date.now() - 86400000*2).toISOString(), timestamp: Date.now() - 86400000*2 },
-            { id: Date.now()+2, pair: "ETH/USD", profitLoss: -85, dateISO: new Date(Date.now() - 86400000).toISOString(), timestamp: Date.now() - 86400000 },
-            { id: Date.now()+3, pair: "XAU/USD", profitLoss: 210, dateISO: new Date().toISOString(), timestamp: Date.now() }
-        ];
-        saveJournal();
+        else {
+            journalEntries = [
+                { id: Date.now()+1, pair: "BTC/USD", profitLoss: 450, dateISO: new Date(Date.now() - 86400000*2).toISOString(), timestamp: Date.now() - 86400000*2 },
+                { id: Date.now()+2, pair: "ETH/USD", profitLoss: -120, dateISO: new Date(Date.now() - 86400000).toISOString(), timestamp: Date.now() - 86400000 },
+                { id: Date.now()+3, pair: "XAU/USD", profitLoss: 310, dateISO: new Date().toISOString(), timestamp: Date.now() }
+            ];
+            saveJournal();
+        }
         const premiumStatus = localStorage.getItem("traderx_premium");
         isPremium = premiumStatus === "true";
         const savedName = localStorage.getItem("traderx_name");
@@ -377,67 +472,72 @@
         const savedEmail = localStorage.getItem("traderx_email");
         if(savedEmail) userEmail = savedEmail;
         signalsArray = buildSignals();
-        initActivitiesLog();
+        initActivities();
     }
+
     function saveJournal() { localStorage.setItem("traderx_journal", JSON.stringify(journalEntries)); }
-    function setPremium(value) { isPremium = value; localStorage.setItem("traderx_premium", value); renderAllPages(); showToast(value ? "🎉 PREMIUM UNLOCKED! Full access" : "Free tier activated"); }
+    function setPremium(value) { isPremium = value; localStorage.setItem("traderx_premium", value); renderAllPages(); showToast(value ? "🎉 PREMIUM ACTIVATED: Full signals & modules unlocked!" : "Free tier active"); }
     function saveUserName(name) { userName = name; localStorage.setItem("traderx_name", name); renderProfilePage(); renderHomePage(); }
-    function initActivitiesLog() { activities = ["📈 Welcome back! Track your performance", "🎯 Premium unlocks exclusive signals"]; if(journalEntries.length) activities.unshift(`📊 ${journalEntries.length} trades logged`); }
+    function initActivities() { activities = ["📈 Market open: volatility expected", "🎯 Premium signals yield +12% this week"]; if(journalEntries.length) activities.unshift(`📊 ${journalEntries.length} journal entries`); }
     function addActivity(msg) { activities.unshift(msg); if(activities.length>8) activities.pop(); renderHomePage(); }
     function getTotalPnL() { return journalEntries.reduce((sum, t) => sum + (t.profitLoss || 0), 0); }
-    function getTodayPnL() { const todayStart = new Date(); todayStart.setHours(0,0,0,0); return journalEntries.filter(t => new Date(t.dateISO) >= todayStart).reduce((sum, t) => sum + t.profitLoss, 0); }
-    function getWinRate() { if(journalEntries.length === 0) return 0; const wins = journalEntries.filter(t => t.profitLoss > 0).length; return (wins / journalEntries.length * 100).toFixed(1); }
+    function getTodayPnL() { const today = new Date(); today.setHours(0,0,0,0); return journalEntries.filter(t => new Date(t.dateISO) >= today).reduce((s, t) => s + t.profitLoss, 0); }
+    function getWinRate() { if(journalEntries.length===0) return 0; const wins = journalEntries.filter(t => t.profitLoss > 0).length; return (wins / journalEntries.length * 100).toFixed(1); }
     function getCurrentBalance() { return balanceStarting + getTotalPnL(); }
-    function getCumulativeBalanceData() {
-        let sorted = [...journalEntries].sort((a,b) => a.timestamp - b.timestamp);
-        let cumulative = balanceStarting;
-        let points = [{label: 'Start', balance: cumulative}];
-        sorted.forEach(t => { cumulative += t.profitLoss; points.push({label: t.pair, balance: cumulative}); });
-        if(points.length === 1) points.push({label: 'Now', balance: cumulative});
+
+    function getCumulativeData() {
+        let sorted = [...journalEntries].sort((a,b)=>a.timestamp - b.timestamp);
+        let cum = balanceStarting;
+        let points = [{label: 'Start', balance: cum}];
+        sorted.forEach(t => { cum += t.profitLoss; points.push({label: t.pair, balance: cum}); });
+        if(points.length===1) points.push({label: 'Now', balance: cum});
         return points;
     }
-    function updateBalanceChart() {
+
+    function updateChart() {
         const canvas = document.getElementById("balanceChartCanvas");
         if(!canvas) return;
         const ctx = canvas.getContext("2d");
-        const dataPoints = getCumulativeBalanceData();
-        const labels = dataPoints.map(p => p.label.length>8 ? p.label.slice(0,6) : p.label);
-        const balances = dataPoints.map(p => p.balance);
+        const data = getCumulativeData();
+        const labels = data.map(p => p.label.length>6 ? p.label.slice(0,5) : p.label);
+        const balances = data.map(p => p.balance);
         if(chartInstance) chartInstance.destroy();
         chartInstance = new Chart(ctx, {
             type: 'line',
-            data: { labels, datasets: [{ label: 'Portfolio ($)', data: balances, borderColor: '#00E6B2', backgroundColor: 'rgba(0,230,178,0.05)', borderWidth: 3, pointRadius: 3, fill: true }] },
-            options: { responsive: true, maintainAspectRatio: true }
+            data: { labels, datasets: [{ label: 'Portfolio ($)', data: balances, borderColor: '#00E6B2', backgroundColor: 'rgba(0,230,178,0.08)', borderWidth: 3, pointRadius: 3.5, pointBackgroundColor: '#2A6DFF', tension: 0.3, fill: true }] },
+            options: { responsive: true, maintainAspectRatio: true, plugins: { tooltip: { mode: 'index' }, legend: { labels: { color: '#C0D0F0' } } } }
         });
     }
+
     function addTrade(pair, profitLossNum) {
         const newTrade = { id: Date.now(), pair, profitLoss: profitLossNum, dateISO: new Date().toISOString(), timestamp: Date.now() };
         journalEntries.push(newTrade);
         saveJournal();
-        addActivity(`📝 ${pair} ${profitLossNum>=0 ? '+' : ''}$${profitLossNum.toFixed(2)}`);
+        addActivity(`✍️ ${pair} ${profitLossNum>=0 ? '+' : ''}$${profitLossNum.toFixed(2)}`);
         showToast(profitLossNum>0 ? `✅ Profit +$${profitLossNum.toFixed(2)}` : `⚠️ Loss $${Math.abs(profitLossNum).toFixed(2)}`);
         renderAllPages();
-        updateBalanceChart();
+        updateChart();
     }
-    function deleteTrade(id) { journalEntries = journalEntries.filter(t => t.id !== id); saveJournal(); addActivity(`🗑️ Trade removed`); renderAllPages(); updateBalanceChart(); }
+    function deleteTrade(id) { journalEntries = journalEntries.filter(t => t.id !== id); saveJournal(); addActivity(`🗑️ Trade removed`); renderAllPages(); updateChart(); }
 
-    // Render Functions (home, signals, journal, news, profile, education)
-    function renderHomePage() { /* same as previous but keep concise */ 
+    // ---------- RENDER PAGES (ULTRA MODERN) ----------
+    function renderHomePage() {
         const homeDiv = document.getElementById("homePage");
         const balance = getCurrentBalance(), todayPnL = getTodayPnL(), totalPnL = getTotalPnL(), winrate = getWinRate();
-        const premiumBadge = isPremium ? '<span class="badge" style="background:#FFB34720;color:#FFB347;">⭐ PREMIUM</span>' : '<span class="badge">🔓 FREE</span>';
-        const visibleSignals = signalsArray.slice(0, 3).map(s => `<div class="signal-item"><span><b>${s.pair}</b> ${s.status}</span><span>${s.entry}</span></div>`).join('');
+        const premiumBadge = isPremium ? '<span class="badge" style="background:#FFB34720;color:#FFB347;"><i class="fas fa-crown"></i> PREMIUM</span>' : '<span class="badge">🔓 FREE</span>';
+        const signalsPreview = signalsArray.slice(0,2).map(s => `<div class="signal-item"><span><b>${s.pair}</b> ${s.status}</span><span>${s.entry}</span></div>`).join('');
         const activityHtml = activities.slice(0,4).map(a => `<div class="flex-between"><span>🔔 ${a}</span></div>`).join('');
         homeDiv.innerHTML = `
-            <div class="card"><div class="flex-between"><div><h2>Welcome back, ${userName}</h2>${premiumBadge}</div><i class="fas fa-chart-simple" style="font-size:28px;color:#2A6DFF;"></i></div></div>
-            <div class="card"><div class="flex-between"><span>💰 Balance</span><span class="profit-text">$${balance.toFixed(2)}</span></div>
-            <div class="flex-between"><span>📈 Profit Today</span><span class="${todayPnL>=0?'profit-text':'loss-text'}">${todayPnL>=0?'+':''}$${todayPnL.toFixed(2)}</span></div>
+            <div class="card"><div class="flex-between"><div><h2>Welcome back, ${userName}</h2>${premiumBadge}</div><i class="fas fa-chart-simple" style="font-size:32px;color:#2A6DFF;"></i></div></div>
+            <div class="card"><div class="flex-between"><span>💰 Net Balance</span><span class="profit-text">$${balance.toFixed(2)}</span></div>
+            <div class="flex-between"><span>📈 Today P&L</span><span class="${todayPnL>=0?'profit-text':'loss-text'}">${todayPnL>=0?'+':''}$${todayPnL.toFixed(2)}</span></div>
             <div class="flex-between"><span>📊 Total PnL</span><span class="${totalPnL>=0?'profit-text':'loss-text'}">${totalPnL>=0?'+':''}$${totalPnL.toFixed(2)}</span></div><hr>
-            <div class="flex-between"><span>🏆 Winrate</span><span>${winrate}%</span></div></div>
-            <div class="card"><canvas id="balanceChartCanvas" height="160"></canvas></div>
-            <div class="card"><h3>🔥 Latest Signals</h3>${visibleSignals}<button class="badge" id="gotoSignalsQuick" style="margin-top:8px;">View all →</button></div>
+            <div class="flex-between"><span>🏆 Win Rate</span><span>${winrate}%</span></div></div>
+            <div class="card"><canvas id="balanceChartCanvas" height="150"></canvas></div>
+            <div class="card"><h3>🔥 Hot Signals</h3>${signalsPreview}<button class="badge" id="gotoSignalsQuick" style="margin-top:8px;">View all →</button></div>
             <div class="card"><h3>📺 Trading Videos</h3><div class="scroll-x" id="videoFeedHome"></div></div>
-            <div class="card"><h3>⚡ Activity Feed</h3>${activityHtml}</div>
+            <div class="card"><h3>📰 Market Pulse</h3><div id="newsPreview"></div></div>
+            <div class="card"><h3>⚡ Live Activity</h3>${activityHtml}</div>
             <div class="grid-2"><button class="glass-btn primary" id="quickAddTradeBtn"><i class="fas fa-plus-circle"></i> Add Trade</button>
             <button class="glass-btn" id="quickSignalsBtn"><i class="fas fa-bullhorn"></i> Signals</button>
             <button class="glass-btn" id="quickCalcBtn"><i class="fas fa-calculator"></i> Calculator</button>
@@ -447,37 +547,101 @@
         document.getElementById("quickCalcBtn")?.addEventListener("click", openCalculatorModal);
         document.getElementById("gotoSignalsQuick")?.addEventListener("click", ()=>switchPage("signals"));
         renderVideoFeed("videoFeedHome", eduVideos);
-        renderWatchlistOnHome();
-        updateBalanceChart();
+        renderNewsPreview();
+        renderWatchlistMini();
+        updateChart();
     }
-    function renderWatchlistOnHome() { const w = document.getElementById("watchlistMini"); if(w) w.innerHTML = `<div><i class="fas fa-chart-line"></i> BTC: $${marketPrices.BTC.toFixed(0)} | GOLD: $${marketPrices.GOLD.toFixed(1)}</div>`; }
-    function renderVideoFeed(containerId, videosArray) { const cont = document.getElementById(containerId); if(cont) cont.innerHTML = videosArray.map(v => `<div class="video-card"><iframe src="https://www.youtube.com/embed/${v.id}?autoplay=0&mute=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe><div style="padding:8px">${v.title}</div></div>`).join(''); }
-    function renderSignalsPage() { const cont = document.getElementById("signalsPage"); let sorted = [...signalsArray].sort((a,b)=>b.createdAt - a.createdAt); let html = sorted.map(sig => { if(sig.premiumLocked && !isPremium) return `<div class="signal-item locked-signal" style="filter: blur(3px);"><div><i class="fas fa-lock"></i> ${sig.pair} 🔒</div><div>Premium signal</div></div>`; return `<div class="signal-item"><div><b>${sig.pair}</b><div><small>Entry:${sig.entry} TP:${sig.tp} SL:${sig.sl}</small></div></div><span class="badge">${sig.status}</span></div>`; }).join(''); if(!isPremium) html += `<div class="card" style="text-align:center"><button class="glass-btn primary" id="upgradeFromSignals">Upgrade Now</button></div>`; cont.innerHTML = `<div class="card"><h2>📡 Trading Signals</h2></div>${html}`; document.getElementById("upgradeFromSignals")?.addEventListener("click", ()=>{ setPremium(true); renderSignalsPage(); }); }
-    function renderJournalPage() { /* similar as before */ const cont = document.getElementById("journalPage"); const totalTrades = journalEntries.length, winrate = getWinRate(), totalPnl = getTotalPnL(); let tradesList = journalEntries.slice().reverse().map(t => `<div class="journal-item"><div><b>${t.pair}</b> <span class="${t.profitLoss>=0?'profit-text':'loss-text'}">${t.profitLoss>=0?'+':''}$${t.profitLoss.toFixed(2)}</span><div><small>${new Date(t.dateISO).toLocaleDateString()}</small></div></div><button class="deleteTradeBtn" data-id="${t.id}"><i class="fas fa-trash-alt"></i></button></div>`).join(''); cont.innerHTML = `<div class="card"><div class="flex-between"><span>📊 Stats</span><span>Total: ${totalTrades}</span></div><div>WinRate: ${winrate}% | Total PnL: ${totalPnl>=0?'+':''}$${totalPnl.toFixed(2)}</div></div><div class="card"><h3>➕ Add Trade</h3><input id="journalPair" placeholder="Pair"><input id="journalPL" type="number" placeholder="Profit/Loss"><button class="glass-btn primary" id="submitTradeBtn">Add</button></div><div class="card"><h3>History</h3>${tradesList}</div>`; document.getElementById("submitTradeBtn")?.addEventListener("click",()=>{ let pair=document.getElementById("journalPair").value, pl=parseFloat(document.getElementById("journalPL").value); if(pair && !isNaN(pl)) addTrade(pair,pl); else showToast("Invalid"); renderJournalPage();}); document.querySelectorAll(".deleteTradeBtn").forEach(btn=>btn.addEventListener("click",(e)=>{deleteTrade(parseInt(btn.dataset.id)); renderJournalPage();}));}
-    function renderNewsPage() { const cont = document.getElementById("newsPage"); cont.innerHTML = `<div class="card"><h3>📰 News Feed</h3>${newsData.map(n=>`<div class="flex-between" style="margin-bottom:12px"><img src="${n.image}" width="40" height="40" style="border-radius:12px"><div><b>${n.title}</b><br><small>${n.source} ${n.date}</small></div></div>`).join('')}</div>`; }
-    function renderEducationPage() { const cont = document.getElementById("educationPage"); const videoHtml = `<div class="card"><h3>🎓 Video Lessons</h3><div class="scroll-x" id="eduVideoScroll"></div></div>`; const modulesHtml = eduModules.map(m => { if(m.premiumLocked && !isPremium) return `<div class="module-item locked-module" style="filter:blur(3px);"><div><i class="fas fa-lock"></i> ${m.title}</div><div>🔒 Premium</div></div>`; return `<div class="module-item"><div><b>${m.title}</b><br><small>${m.desc}</small></div><i class="fas fa-play-circle"></i></div>`; }).join(''); const upgradeBtn = !isPremium ? `<div class="card"><button class="glass-btn primary" id="upgradeEduBtn">Upgrade to Premium → Unlock all modules</button></div>` : ''; cont.innerHTML = videoHtml + `<div class="card"><h3>📚 Trading Modules</h3>${modulesHtml}</div>` + upgradeBtn; renderVideoFeed("eduVideoScroll", eduVideos); document.getElementById("upgradeEduBtn")?.addEventListener("click",()=>setPremium(true)); }
-    function renderProfilePage() { const cont = document.getElementById("profilePage"); cont.innerHTML = `<div class="card" style="text-align:center"><i class="fas fa-user-circle fa-4x"></i><h2>${userName}</h2><p>${userEmail}</p><span class="badge">${isPremium?"PREMIUM":"FREE"}</span></div><div class="card"><label>Edit Name</label><input id="editNameInput" value="${userName}"><button class="glass-btn primary" id="saveNameBtn">Save</button><hr><button class="glass-btn" id="upgradeProfileBtn">${isPremium?"Already Premium":"Upgrade to Premium"}</button><button class="glass-btn" id="logoutBtn">Logout</button></div>`; document.getElementById("saveNameBtn")?.addEventListener("click",()=>{ let newName=document.getElementById("editNameInput").value; if(newName) saveUserName(newName); renderProfilePage(); }); document.getElementById("upgradeProfileBtn")?.addEventListener("click",()=>setPremium(true)); document.getElementById("logoutBtn")?.addEventListener("click",()=>{ localStorage.removeItem("traderx_logged"); localStorage.removeItem("traderx_premium"); localStorage.removeItem("traderx_name"); window.location.reload(); }); }
-    function openAddTradeModal() { /* modal simplified */ const modalDiv = document.createElement("div"); modalDiv.className="modal"; modalDiv.innerHTML=`<div class="modal-content"><h3>Add Trade</h3><input id="modalPair" placeholder="Pair"><input id="modalPL" type="number" placeholder="P/L $"><div class="flex-between"><button id="closeModal">Cancel</button><button class="primary" id="confirmModalTrade">Add</button></div></div>`; document.body.appendChild(modalDiv); document.getElementById("closeModal")?.addEventListener("click",()=>modalDiv.remove()); document.getElementById("confirmModalTrade")?.addEventListener("click",()=>{ let p=document.getElementById("modalPair").value, pl=parseFloat(document.getElementById("modalPL").value); if(p && !isNaN(pl)){ addTrade(p,pl); modalDiv.remove(); renderJournalPage(); } else showToast("Invalid"); }); }
-    function openCalculatorModal() { const modalDiv = document.createElement("div"); modalDiv.className="modal"; modalDiv.innerHTML=`<div class="modal-content"><h3>Risk Calculator</h3><label>Balance</label><input id="calcBalance" value="${getCurrentBalance().toFixed(0)}"><label>Risk %</label><input id="calcRisk" value="1.5"><div>Lot size: <span id="lotResult">0.00</span></div><button id="closeCalc">Close</button></div>`; document.body.appendChild(modalDiv); function update(){ let bal=parseFloat(document.getElementById("calcBalance").value)||0; let risk=parseFloat(document.getElementById("calcRisk").value)||0; let lot=(bal*risk/100)/100000; document.getElementById("lotResult").innerText=lot.toFixed(3);} document.getElementById("calcBalance")?.addEventListener("input",update); document.getElementById("calcRisk")?.addEventListener("input",update); update(); document.getElementById("closeCalc")?.addEventListener("click",()=>modalDiv.remove()); }
-    function showToast(msg) { const toast = document.createElement("div"); toast.className="toast-msg"; toast.innerHTML=`<i class="fas fa-bell"></i> ${msg}`; document.body.appendChild(toast); setTimeout(()=>toast.remove(),2200); }
+
+    function renderWatchlistMini() { const w = document.getElementById("watchlistMini"); if(w) w.innerHTML = `<div><i class="fas fa-chart-line"></i> BTC: $${marketPrices.BTC.toFixed(0)} | GOLD: $${marketPrices.GOLD.toFixed(1)} | EUR: ${marketPrices.EURUSD.toFixed(4)}</div>`; }
+    function renderNewsPreview() { const previewDiv = document.getElementById("newsPreview"); if(previewDiv) previewDiv.innerHTML = newsData.slice(0,2).map(n => `<div class="flex-between" style="margin-bottom:8px"><img src="${n.image}" width="40" height="40" style="border-radius:12px"><div><b>${n.title.slice(0,28)}</b><br><small>${n.source}</small></div></div>`).join(''); }
+    function renderVideoFeed(containerId, videos) { const cont = document.getElementById(containerId); if(cont) cont.innerHTML = videos.map(v => `<div class="video-card"><iframe src="https://www.youtube.com/embed/${v.id}?autoplay=0&mute=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe><div style="padding:10px; font-weight:500;">${v.title}</div></div>`).join(''); }
+
+    function renderSignalsPage() {
+        const cont = document.getElementById("signalsPage");
+        let sorted = [...signalsArray].sort((a,b)=>b.createdAt - a.createdAt);
+        let html = sorted.map(sig => {
+            if(sig.premiumLocked && !isPremium) return `<div class="signal-item locked-signal" style="filter: blur(4px);"><div><i class="fas fa-lock"></i> ${sig.pair} 🔒</div><div>Premium signal locked</div></div>`;
+            return `<div class="signal-item"><div><b>${sig.pair}</b><div><small>Entry:${sig.entry} | TP:${sig.tp} | SL:${sig.sl}</small></div></div><span class="badge">${sig.status}</span></div>`;
+        }).join('');
+        if(!isPremium) html += `<div class="card" style="text-align:center"><button class="glass-btn primary" id="upgradeFromSignals">🚀 Upgrade to Premium → Unlock 3+ signals</button></div>`;
+        cont.innerHTML = `<div class="card"><h2>📡 Live Trading Signals</h2><p>Real-time market insights</p></div>${html}`;
+        document.getElementById("upgradeFromSignals")?.addEventListener("click", ()=>{ setPremium(true); renderSignalsPage(); });
+    }
+
+    function renderJournalPage() {
+        const cont = document.getElementById("journalPage");
+        const totalTrades = journalEntries.length, winrate = getWinRate(), totalPnl = getTotalPnL();
+        let tradesList = journalEntries.slice().reverse().map(t => `<div class="journal-item"><div><b>${t.pair}</b> <span class="${t.profitLoss>=0?'profit-text':'loss-text'}">${t.profitLoss>=0?'+':''}$${t.profitLoss.toFixed(2)}</span><div><small>${new Date(t.dateISO).toLocaleDateString()}</small></div></div><button class="deleteTradeBtn" data-id="${t.id}"><i class="fas fa-trash-alt"></i></button></div>`).join('');
+        cont.innerHTML = `<div class="card"><div class="flex-between"><span>📊 Stats</span><span>Total: ${totalTrades}</span></div><div>Win Rate: ${winrate}% | Total PnL: ${totalPnl>=0?'+':''}$${totalPnl.toFixed(2)}</div></div>
+        <div class="card"><h3>➕ Quick Journal</h3><input id="journalPair" placeholder="Pair (BTC/USD)" value="SOL/USD"><input id="journalPL" type="number" placeholder="Profit/Loss $"><button class="glass-btn primary" id="submitTradeBtn">Add Trade</button></div>
+        <div class="card"><h3>📜 Trade History</h3>${tradesList || 'No trades yet'}</div>`;
+        document.getElementById("submitTradeBtn")?.addEventListener("click",()=>{ let pair=document.getElementById("journalPair").value, pl=parseFloat(document.getElementById("journalPL").value); if(pair && !isNaN(pl)) addTrade(pair,pl); else showToast("Invalid data"); renderJournalPage(); });
+        document.querySelectorAll(".deleteTradeBtn").forEach(btn => btn.addEventListener("click", (e)=>{ deleteTrade(parseInt(btn.dataset.id)); renderJournalPage(); }));
+    }
+
+    function renderNewsPage() {
+        const cont = document.getElementById("newsPage");
+        const categories = ["All","Crypto","Forex","Gold","Stocks"];
+        let filterBtns = categories.map(cat => `<button class="badge news-filter" data-cat="${cat}">${cat}</button>`).join(' ');
+        cont.innerHTML = `<div class="card"><h3>🎬 Video Analysis</h3><div class="scroll-x" id="newsVideoScroll"></div></div><div class="card">🔍 Filter: ${filterBtns}</div><div id="newsListContainer"></div>`;
+        renderVideoFeed("newsVideoScroll", eduVideos.slice(0,2));
+        function renderNewsByCat(cat) {
+            let filtered = cat === "All" ? newsData : newsData.filter(n => n.category === cat);
+            const newsHtml = filtered.map(n => `<div class="news-item"><img src="${n.image}" width="48" height="48" style="border-radius:16px"><div style="flex:1; margin-left:14px"><b>${n.title}</b><br><small>${n.source} • ${n.date}</small></div></div>`).join('');
+            document.getElementById("newsListContainer").innerHTML = newsHtml;
+        }
+        renderNewsByCat("All");
+        document.querySelectorAll(".news-filter").forEach(btn => btn.addEventListener("click", (e)=>renderNewsByCat(btn.dataset.cat)));
+    }
+
+    function renderEducationPage() {
+        const cont = document.getElementById("educationPage");
+        const modulesHtml = eduModules.map(m => {
+            if(m.premiumLocked && !isPremium) return `<div class="module-item locked-module" style="filter:blur(3px);"><div><i class="fas fa-lock"></i> ${m.title}</div><div>🔒 Exclusive</div></div>`;
+            return `<div class="module-item"><div><b>${m.title}</b><br><small>${m.desc}</small></div><i class="fas fa-play-circle" style="color:#2A6DFF"></i></div>`;
+        }).join('');
+        const upgradeBlock = !isPremium ? `<div class="card"><button class="glass-btn primary" id="upgradeEduBtn">🎓 Unlock ALL Modules → Upgrade Premium</button></div>` : '';
+        cont.innerHTML = `<div class="card"><h3>📚 Masterclass Videos</h3><div class="scroll-x" id="eduVideoScroll"></div></div><div class="card"><h3>📖 Learning Modules</h3>${modulesHtml}</div>${upgradeBlock}`;
+        renderVideoFeed("eduVideoScroll", eduVideos);
+        document.getElementById("upgradeEduBtn")?.addEventListener("click",()=>setPremium(true));
+    }
+
+    function renderProfilePage() {
+        const cont = document.getElementById("profilePage");
+        cont.innerHTML = `<div class="card" style="text-align:center"><i class="fas fa-user-astronaut fa-4x" style="color:#2A6DFF"></i><h2>${userName}</h2><p>${userEmail}</p><span class="badge">${isPremium ? "✨ PREMIUM MEMBER" : "⭐ FREE TIER"}</span></div>
+        <div class="card"><label>Display Name</label><input id="editNameInput" value="${userName}"><button class="glass-btn primary" id="saveNameBtn">Save Profile</button><hr>
+        <button class="glass-btn" id="upgradeProfileBtn">${isPremium ? "🌟 Premium Active" : "💎 Upgrade to Premium"}</button>
+        <button class="glass-btn" id="logoutBtn" style="background:#2A1F2A;"><i class="fas fa-sign-out-alt"></i> Logout</button></div>`;
+        document.getElementById("saveNameBtn")?.addEventListener("click",()=>{ let newName=document.getElementById("editNameInput").value; if(newName) saveUserName(newName); renderProfilePage(); });
+        document.getElementById("upgradeProfileBtn")?.addEventListener("click",()=>setPremium(true));
+        document.getElementById("logoutBtn")?.addEventListener("click",()=>{ localStorage.removeItem("traderx_logged"); localStorage.removeItem("traderx_premium"); localStorage.removeItem("traderx_name"); window.location.reload(); });
+    }
+
+    // Modals & Utils
+    function openAddTradeModal() { const modal=document.createElement("div"); modal.className="modal"; modal.innerHTML=`<div class="modal-content"><h3>Add Trade</h3><input id="modalPair" placeholder="Pair"><input id="modalPL" type="number" placeholder="Profit/Loss $"><div class="flex-between"><button id="closeModal" class="glass-btn">Cancel</button><button id="confirmModalTrade" class="glass-btn primary">Confirm</button></div></div>`; document.body.appendChild(modal); document.getElementById("closeModal")?.addEventListener("click",()=>modal.remove()); document.getElementById("confirmModalTrade")?.addEventListener("click",()=>{ let p=document.getElementById("modalPair").value, pl=parseFloat(document.getElementById("modalPL").value); if(p && !isNaN(pl)){ addTrade(p,pl); modal.remove(); renderJournalPage(); } else showToast("Invalid entry"); }); }
+    function openCalculatorModal() { const modal=document.createElement("div"); modal.className="modal"; modal.innerHTML=`<div class="modal-content"><h3>📐 Position Sizing</h3><label>Account Balance ($)</label><input id="calcBalance" value="${getCurrentBalance().toFixed(0)}"><label>Risk % per trade</label><input id="calcRisk" value="1.5"><div style="background:#1A2A44; padding:12px; border-radius:24px; margin-top:10px;">⚖️ Suggested Lot Size: <span id="lotResult" class="profit-text">0.00</span> lots</div><button id="closeCalc" class="glass-btn" style="margin-top:16px;">Close</button></div>`; document.body.appendChild(modal); function update(){ let bal=parseFloat(document.getElementById("calcBalance").value)||0; let risk=parseFloat(document.getElementById("calcRisk").value)||0; let lot=(bal*risk/100)/100000; document.getElementById("lotResult").innerText=lot.toFixed(3);} document.getElementById("calcBalance")?.addEventListener("input",update); document.getElementById("calcRisk")?.addEventListener("input",update); update(); document.getElementById("closeCalc")?.addEventListener("click",()=>modal.remove()); }
+    function showToast(msg) { const toast=document.createElement("div"); toast.className="toast-msg"; toast.innerHTML=`<i class="fas fa-bell"></i> ${msg}`; document.body.appendChild(toast); setTimeout(()=>toast.remove(),2500); }
+
+    // Sidebar & Navigation
+    function openSidebar() { document.getElementById("sidebar").classList.add("open"); document.getElementById("sidebarOverlay").style.display="block"; }
+    function closeSidebar() { document.getElementById("sidebar").classList.remove("open"); document.getElementById("sidebarOverlay").style.display="none"; }
+    function showNotifications() { const notifDiv=document.createElement("div"); notifDiv.className="modal"; notifDiv.innerHTML=`<div class="modal-content"><h3><i class="fas fa-bell"></i> Notifications</h3><ul style="list-style:none; margin-top:12px;"><li>🔔 New BTC signal: breakout above 69k</li><li>💰 Journal profit: +$450 added</li><li>📰 Gold hits new high</li><li>⭐ Upgrade to Premium for advanced modules</li></ul><button id="closeNotif" class="glass-btn">Dismiss</button></div>`; document.body.appendChild(notifDiv); document.getElementById("closeNotif")?.addEventListener("click",()=>notifDiv.remove()); }
     function switchPage(pageId) { document.querySelectorAll(".page").forEach(p=>p.classList.remove("active-page")); document.getElementById(`${pageId}Page`).classList.add("active-page"); document.querySelectorAll(".nav-item").forEach(btn=>btn.classList.remove("active")); document.querySelector(`.nav-item[data-page="${pageId}"]`)?.classList.add("active"); if(pageId==="home") renderHomePage(); if(pageId==="signals") renderSignalsPage(); if(pageId==="journal") renderJournalPage(); if(pageId==="news") renderNewsPage(); if(pageId==="education") renderEducationPage(); if(pageId==="profile") renderProfilePage(); closeSidebar(); }
     function renderAllPages() { renderHomePage(); renderSignalsPage(); renderJournalPage(); renderNewsPage(); renderEducationPage(); renderProfilePage(); }
-    // Sidebar logic
-    function openSidebar() { document.getElementById("sidebar").classList.add("open"); document.getElementById("sidebarOverlay").style.display = "block"; }
-    function closeSidebar() { document.getElementById("sidebar").classList.remove("open"); document.getElementById("sidebarOverlay").style.display = "none"; }
-    // Notification dropdown
-    function showNotifications() { const notifDiv = document.createElement("div"); notifDiv.className="modal"; notifDiv.innerHTML=`<div class="modal-content"><h3><i class="fas fa-bell"></i> Notifications</h3><ul style="list-style:none"><li>🔔 New signal: BTC/USD breakout</li><li>💰 Profit update: +$320 realized</li><li>📰 Fed news impacting markets</li><li>⭐ Upgrade to Premium for exclusive insights</li></ul><button id="closeNotif" class="glass-btn">Close</button></div>`; document.body.appendChild(notifDiv); document.getElementById("closeNotif")?.addEventListener("click",()=>notifDiv.remove()); }
-    // Login system
-    function checkAutoLogin() { const logged = localStorage.getItem("traderx_logged"); if(logged==="true") { loggedIn=true; document.getElementById("loginScreen").style.display="none"; document.getElementById("mainApp").style.display="block"; loadStorage(); renderAllPages(); setInterval(()=>{ marketPrices.BTC+=(Math.random()-0.5)*150; marketPrices.GOLD+=(Math.random()-0.5)*6; renderWatchlistOnHome(); if(Math.random()>0.7) addActivity(`💹 ${Object.keys(marketPrices)[0]} updated`); },4500); } else { loggedIn=false; document.getElementById("loginScreen").style.display="flex"; document.getElementById("mainApp").style.display="none"; } }
-    document.getElementById("doLoginBtn")?.addEventListener("click",()=>{ const email=document.getElementById("loginEmail").value; const pass=document.getElementById("loginPassword").value; const remember=document.getElementById("rememberCheckbox").checked; if(email && pass){ localStorage.setItem("traderx_logged","true"); if(remember) localStorage.setItem("traderx_remember","true"); else localStorage.removeItem("traderx_remember"); userEmail=email; localStorage.setItem("traderx_email",email); checkAutoLogin(); showToast("Login successful!"); } else showToast("Enter email/password"); });
+
+    // Real-time simulation
+    function startRealtimeSimulation() { setInterval(()=>{ marketPrices.BTC += (Math.random()-0.5)*180; marketPrices.GOLD += (Math.random()-0.5)*7; marketPrices.EURUSD += (Math.random()-0.5)*0.0015; marketPrices.BTC = Math.max(55000, marketPrices.BTC); renderWatchlistMini(); if(Math.random()>0.7) addActivity(`⚡ ${Object.keys(marketPrices)[Math.floor(Math.random()*3)]} moved >0.5%`); }, 5500); }
+
+    // Login check
+    function checkAutoLogin() { const logged = localStorage.getItem("traderx_logged"); if(logged==="true") { loggedIn=true; document.getElementById("loginScreen").style.display="none"; document.getElementById("mainApp").style.display="block"; loadStorage(); renderAllPages(); startRealtimeSimulation(); } else { document.getElementById("loginScreen").style.display="flex"; document.getElementById("mainApp").style.display="none"; } }
+    document.getElementById("doLoginBtn")?.addEventListener("click",()=>{ const email=document.getElementById("loginEmail").value; const pass=document.getElementById("loginPassword").value; const remember=document.getElementById("rememberCheckbox").checked; if(email && pass){ localStorage.setItem("traderx_logged","true"); if(remember) localStorage.setItem("traderx_remember","true"); else localStorage.removeItem("traderx_remember"); userEmail=email; localStorage.setItem("traderx_email",email); checkAutoLogin(); showToast("Welcome to Trader X Academy"); } else showToast("Enter credentials"); });
     document.getElementById("menuToggleBtn")?.addEventListener("click", openSidebar);
     document.getElementById("sidebarOverlay")?.addEventListener("click", closeSidebar);
     document.getElementById("notifBellBtn")?.addEventListener("click", showNotifications);
-    document.querySelectorAll(".sidebar-item[data-side-page]").forEach(el=>{ el.addEventListener("click",()=>{ const page=el.getAttribute("data-side-page"); if(page) switchPage(page); }); });
+    document.querySelectorAll(".sidebar-item[data-side-page]").forEach(el=>el.addEventListener("click",()=>{ const page=el.getAttribute("data-side-page"); if(page) switchPage(page); }));
     document.getElementById("sidebarUpgrade")?.addEventListener("click",()=>{ setPremium(true); switchPage("profile"); closeSidebar(); });
     document.querySelectorAll(".nav-item").forEach(btn=>btn.addEventListener("click",()=>switchPage(btn.dataset.page)));
     checkAutoLogin();
 </script>
 </body>
 </html>
-```
