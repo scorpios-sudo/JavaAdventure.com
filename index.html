@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         /* ============================================
-           ROOT VARIABLES & RESET
+           ROOT VARIABLES - HITAM PUTIH
         ============================================ */
         :root {
             --primary: #000000;
@@ -16,11 +16,10 @@
             --primary-dark: #000000;
             --secondary: #ffffff;
             --secondary-dark: #f5f5f5;
-            --accent: #FF6B35;
-            --accent-hover: #E55A2B;
-            --accent-light: #FF8B60;
-            --gradient-primary: linear-gradient(135deg, #000000 0%, #2a2a2a 100%);
-            --gradient-accent: linear-gradient(135deg, #FF6B35 0%, #FF8B60 100%);
+            --accent: #000000;
+            --accent-hover: #333333;
+            --gradient-primary: linear-gradient(135deg, #000000 0%, #333333 100%);
+            --gradient-accent: linear-gradient(135deg, #000000 0%, #333333 100%);
             --gradient-hero: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
             --text-primary: #000000;
             --text-secondary: #666666;
@@ -95,7 +94,7 @@
         }
 
         /* ============================================
-           BUTTONS
+           BUTTONS - HITAM PUTIH
         ============================================ */
         .btn {
             display: inline-flex;
@@ -156,16 +155,6 @@
             box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
         }
 
-        .btn-accent {
-            background: var(--gradient-accent);
-            color: white;
-            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.30);
-        }
-
-        .btn-accent:hover {
-            box-shadow: 0 10px 35px rgba(255, 107, 53, 0.40);
-        }
-
         .btn-small {
             padding: 10px 22px;
             font-size: 13px;
@@ -177,7 +166,7 @@
         }
 
         /* ============================================
-           HEADER
+           HEADER - HITAM PUTIH
         ============================================ */
         header {
             background: rgba(255, 255, 255, 0.97);
@@ -217,12 +206,12 @@
         }
 
         .logo i {
-            color: var(--accent);
+            color: var(--text-primary);
             font-size: 26px;
         }
 
         .logo span {
-            color: var(--accent);
+            color: var(--text-primary);
         }
 
         .nav-links {
@@ -250,7 +239,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--gradient-accent);
+            background: var(--text-primary);
             transition: var(--transition-fast);
             border-radius: 2px;
         }
@@ -279,7 +268,7 @@
         }
 
         /* ============================================
-           HERO SECTION
+           HERO SECTION - HITAM PUTIH
         ============================================ */
         .hero {
             padding: 160px 0 100px;
@@ -298,7 +287,7 @@
             right: -20%;
             width: 60%;
             height: 120%;
-            background: radial-gradient(circle, rgba(255, 107, 53, 0.06) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.04) 0%, transparent 70%);
             pointer-events: none;
         }
 
@@ -328,10 +317,7 @@
         }
 
         .hero h1 span {
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text-primary);
         }
 
         .hero p {
@@ -348,7 +334,7 @@
             flex-wrap: wrap;
         }
 
-        /* Hero Stats */
+        /* Hero Stats - Hitam Putih */
         .trading-stats {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -382,10 +368,7 @@
             font-size: 38px;
             font-weight: 900;
             font-family: var(--font-heading);
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text-primary);
             margin-bottom: 4px;
         }
 
@@ -427,7 +410,7 @@
             transform: translateX(-50%);
             width: 60px;
             height: 3px;
-            background: var(--gradient-accent);
+            background: var(--text-primary);
             border-radius: 4px;
         }
 
@@ -440,7 +423,7 @@
         }
 
         /* ============================================
-           ABOUT SECTION
+           ABOUT SECTION - HITAM PUTIH
         ============================================ */
         .about {
             background: var(--secondary-dark);
@@ -484,7 +467,7 @@
         }
 
         .feature-item:hover {
-            border-color: var(--accent);
+            border-color: var(--text-primary);
             box-shadow: var(--shadow-sm);
             transform: translateY(-2px);
         }
@@ -493,12 +476,12 @@
             width: 44px;
             height: 44px;
             min-width: 44px;
-            background: rgba(255, 107, 53, 0.10);
+            background: rgba(0, 0, 0, 0.08);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--accent);
+            color: var(--text-primary);
             font-size: 18px;
         }
 
@@ -542,7 +525,7 @@
         }
 
         /* ============================================
-           SERVICES SECTION
+           SERVICES SECTION - HITAM PUTIH
         ============================================ */
         .services {
             background: var(--secondary);
@@ -572,7 +555,7 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background: var(--gradient-accent);
+            background: var(--text-primary);
             transform: scaleX(0);
             transform-origin: left;
             transition: var(--transition);
@@ -591,20 +574,20 @@
         .service-icon {
             width: 76px;
             height: 76px;
-            background: rgba(255, 107, 53, 0.10);
+            background: rgba(0, 0, 0, 0.08);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
             font-size: 28px;
-            color: var(--accent);
+            color: var(--text-primary);
             transition: var(--transition);
         }
 
         .service-card:hover .service-icon {
-            background: var(--gradient-accent);
-            color: white;
+            background: var(--text-primary);
+            color: var(--secondary);
             transform: rotateY(180deg);
         }
 
@@ -622,7 +605,7 @@
         }
 
         /* ============================================
-           TOOLS SECTION
+           TOOLS SECTION - HITAM PUTIH
         ============================================ */
         .tools {
             background: var(--secondary-dark);
@@ -645,13 +628,13 @@
 
         .tool-item:hover {
             transform: translateY(-6px);
-            border-color: var(--accent);
+            border-color: var(--text-primary);
             box-shadow: var(--shadow-md);
         }
 
         .tool-icon {
             font-size: 40px;
-            color: var(--accent);
+            color: var(--text-primary);
             margin-bottom: 16px;
             display: block;
         }
@@ -670,7 +653,7 @@
         }
 
         /* ============================================
-           PLATFORM SECTION
+           PLATFORM SECTION - HITAM PUTIH
         ============================================ */
         .platform-preview {
             background: var(--secondary);
@@ -732,9 +715,9 @@
             width: 100%;
             height: 100%;
             background: 
-                linear-gradient(90deg, #1a1a2e 21px, transparent 1%) center,
-                linear-gradient(#1a1a2e 21px, transparent 1%) center,
-                #0f0f23;
+                linear-gradient(90deg, #e8e8e8 21px, transparent 1%) center,
+                linear-gradient(#e8e8e8 21px, transparent 1%) center,
+                #f0f0f0;
             background-size: 22px 22px;
             position: relative;
         }
@@ -744,29 +727,19 @@
             bottom: 0;
             width: 100%;
             height: 70%;
-            background: linear-gradient(to top, rgba(255, 107, 53, 0.20) 0%, transparent 70%);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.15) 0%, transparent 70%);
             clip-path: polygon(0% 100%, 3% 82%, 8% 88%, 12% 72%, 18% 78%, 23% 62%, 28% 68%, 33% 52%, 38% 58%, 43% 42%, 48% 48%, 53% 32%, 58% 38%, 63% 22%, 68% 28%, 73% 12%, 78% 18%, 83% 6%, 88% 12%, 93% 4%, 97% 8%, 100% 2%);
-        }
-
-        .chart-line::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, rgba(255, 107, 53, 0.30) 0%, transparent 50%);
         }
 
         .price-indicator {
             position: absolute;
             right: 24px;
             top: 24px;
-            background: rgba(15, 15, 35, 0.92);
+            background: rgba(255, 255, 255, 0.95);
             padding: 16px 22px;
             border-radius: var(--radius-sm);
-            border-left: 3px solid var(--accent);
-            backdrop-filter: blur(12px);
+            border-left: 3px solid var(--text-primary);
+            box-shadow: var(--shadow-sm);
             min-width: 150px;
         }
 
@@ -780,7 +753,7 @@
             font-family: var(--font-heading);
             font-size: 22px;
             font-weight: 700;
-            color: var(--secondary);
+            color: var(--text-primary);
         }
 
         .price-indicator .change {
@@ -792,7 +765,7 @@
         .price-indicator .change.negative { color: #FF6B6B; }
 
         /* ============================================
-           ANALYSIS SECTION
+           ANALYSIS SECTION - HITAM PUTIH
         ============================================ */
         .analysis {
             background: var(--secondary-dark);
@@ -853,7 +826,7 @@
         }
 
         .change-img-btn:hover {
-            background: var(--accent);
+            background: var(--text-primary);
             transform: scale(1.05);
         }
 
@@ -903,12 +876,12 @@
         }
 
         .tag:hover {
-            background: var(--accent);
-            color: white;
+            background: var(--text-primary);
+            color: var(--secondary);
         }
 
         /* ============================================
-           PRICING SECTION
+           PRICING SECTION - HITAM PUTIH
         ============================================ */
         .pricing {
             background: var(--secondary);
@@ -937,17 +910,17 @@
         }
 
         .pricing-card.featured {
-            border-color: var(--accent);
+            border-color: var(--text-primary);
             box-shadow: var(--shadow-md);
         }
 
         .pricing-card.featured .pricing-header {
-            background: var(--gradient-accent);
+            background: var(--gradient-primary);
             color: white;
         }
 
         .pricing-card.featured .pricing-header h3 {
-            color: rgba(255,255,255,0.9);
+            color: rgba(255,255,255,0.8);
         }
 
         .pricing-card.featured .pricing-header .price-new {
@@ -955,11 +928,11 @@
         }
 
         .pricing-card.featured .pricing-header .price-old {
-            color: rgba(255,255,255,0.6);
+            color: rgba(255,255,255,0.5);
         }
 
         .pricing-card.featured .pricing-header .price-period {
-            color: rgba(255,255,255,0.8);
+            color: rgba(255,255,255,0.7);
         }
 
         .pricing-header {
@@ -977,7 +950,7 @@
         }
 
         .pricing-header .logo-small i {
-            color: var(--accent);
+            color: var(--text-primary);
             margin-right: 8px;
         }
 
@@ -1034,7 +1007,7 @@
         }
 
         .feature-list li i {
-            color: var(--accent);
+            color: var(--text-primary);
             font-size: 18px;
             margin-top: 2px;
             flex-shrink: 0;
@@ -1065,8 +1038,8 @@
 
         .promo-section input:focus {
             outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
+            border-color: var(--text-primary);
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
         }
 
         .promo-section .btn {
@@ -1081,7 +1054,7 @@
         }
 
         /* ============================================
-           TESTIMONIALS SECTION
+           TESTIMONIALS SECTION - HITAM PUTIH
         ============================================ */
         .testimonials {
             background: var(--secondary-dark);
@@ -1114,7 +1087,7 @@
         }
 
         .testimonial-item:hover {
-            border-color: var(--accent);
+            border-color: var(--text-primary);
             box-shadow: var(--shadow-md);
             transform: translateY(-4px);
         }
@@ -1130,7 +1103,7 @@
             justify-content: center;
             font-size: 28px;
             color: var(--text-secondary);
-            border: 3px solid var(--accent);
+            border: 3px solid var(--text-primary);
         }
 
         .testimonial-text {
@@ -1146,9 +1119,9 @@
         .testimonial-text::after {
             content: '"';
             font-size: 32px;
-            color: var(--accent);
+            color: var(--text-primary);
             position: absolute;
-            opacity: 0.25;
+            opacity: 0.15;
         }
 
         .testimonial-text::before {
@@ -1174,7 +1147,7 @@
         }
 
         /* ============================================
-           CONTACT SECTION
+           CONTACT SECTION - HITAM PUTIH
         ============================================ */
         .contact {
             background: var(--secondary);
@@ -1197,12 +1170,12 @@
             width: 48px;
             height: 48px;
             min-width: 48px;
-            background: rgba(255, 107, 53, 0.10);
+            background: rgba(0, 0, 0, 0.08);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--accent);
+            color: var(--text-primary);
             font-size: 18px;
         }
 
@@ -1235,9 +1208,9 @@
         }
 
         .contact-form .form-control:focus {
-            border-color: var(--accent);
+            border-color: var(--text-primary);
             outline: none;
-            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.12);
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
         }
 
         .contact-form .form-control::placeholder {
@@ -1245,7 +1218,7 @@
         }
 
         /* ============================================
-           FOOTER
+           FOOTER - HITAM PUTIH
         ============================================ */
         footer {
             background: var(--secondary);
@@ -1276,7 +1249,7 @@
             left: 0;
             width: 30px;
             height: 2px;
-            background: var(--gradient-accent);
+            background: var(--text-primary);
             border-radius: 2px;
         }
 
@@ -1301,7 +1274,7 @@
         }
 
         .footer-links a:hover {
-            color: var(--accent);
+            color: var(--text-primary);
             padding-left: 6px;
         }
 
@@ -1325,8 +1298,8 @@
         }
 
         .social-links a:hover {
-            background: var(--gradient-accent);
-            color: white;
+            background: var(--text-primary);
+            color: var(--secondary);
             transform: translateY(-3px) scale(1.05);
         }
 
@@ -1339,7 +1312,7 @@
         }
 
         /* ============================================
-           BOTTOM NAVIGATION
+           BOTTOM NAVIGATION - HITAM PUTIH
         ============================================ */
         .bottom-nav {
             display: none;
@@ -1375,11 +1348,11 @@
 
         .bottom-nav a.active,
         .bottom-nav a:hover {
-            color: var(--accent);
+            color: var(--text-primary);
         }
 
         /* ============================================
-           SCROLL TO TOP
+           SCROLL TO TOP - HITAM PUTIH
         ============================================ */
         .scroll-top {
             position: fixed;
@@ -1387,8 +1360,8 @@
             right: 24px;
             width: 46px;
             height: 46px;
-            background: var(--gradient-accent);
-            color: white;
+            background: var(--text-primary);
+            color: var(--secondary);
             border: none;
             border-radius: 50%;
             display: flex;
@@ -1399,7 +1372,7 @@
             visibility: hidden;
             transition: var(--transition);
             z-index: 999;
-            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.30);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.20);
             font-size: 18px;
         }
 
@@ -1410,7 +1383,7 @@
 
         .scroll-top:hover {
             transform: translateY(-4px) scale(1.05);
-            box-shadow: 0 10px 35px rgba(255, 107, 53, 0.40);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.30);
         }
 
         /* ============================================
@@ -1525,17 +1498,6 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
             }
         }
 
@@ -1763,7 +1725,7 @@
                         <li><i class="fas fa-check-circle"></i> Rekaman semua sesi webinar, mentoring, yang bisa ditonton ulang selamanya</li>
                         <li><i class="fas fa-check-circle"></i> Aktivitas offline tahunan untuk sesi networking dengan sesama pelajar</li>
                     </ul>
-                    <a href="https://wa.me/6285746639477?text=Halo%20saya%20mau%20join%20paket%20tahunan%20Trader%20X%20Academy" class="btn btn-accent btn-block" style="margin-bottom: 16px;">Dapatkan Akses Tahunan</a>
+                    <a href="https://wa.me/6285746639477?text=Halo%20saya%20mau%20join%20paket%20tahunan%20Trader%20X%20Academy" class="btn btn-block" style="margin-bottom: 16px;">Dapatkan Akses Tahunan</a>
                     <div class="promo-section">
                         <input type="text" placeholder="Punya Kode Promo? Masukkan di sini" id="promoCode">
                         <button class="btn btn-secondary btn-small" id="applyPromo">Terapkan</button>
@@ -1889,7 +1851,7 @@
 
 <script>
     // ========================================
-    // FUNCTION GANTI GAMBAR (Tetap dipertahankan)
+    // FUNCTION GANTI GAMBAR
     // ========================================
     function setupImageUpload() {
         const buttons = document.querySelectorAll('.change-img-btn');
